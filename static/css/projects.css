@@ -1,0 +1,423 @@
+/* ====== RESET ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ====== SIDEBAR ====== */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  width: 180px;
+  background-color: #1b1b1b;
+  padding: 20px 10px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.sidebar h2 {
+  color: #82aaff;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  user-select: none;
+}
+
+.sidebar nav a {
+  display: block;
+  color: #cfd8fc;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  padding: 0.4rem 0;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.sidebar nav a:hover {
+  background-color: #2a52d8;
+  color: white;
+}
+
+/* ====== MAIN CONTENT ====== */
+main.main-content {
+  flex: 1;
+  padding: 2rem;
+  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+  overflow-y: auto;
+}
+
+main.main-content h1 {
+  color: #82aaff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.7);
+}
+
+/* ====== PROJECT GRID ====== */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ====== PROJECT CARD ====== */
+.project-card {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  background: rgba(26, 115, 232, 0.3);
+  box-shadow: 0 12px 36px rgba(26, 115, 232, 0.6);
+}
+
+.project-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #82aaff;
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+.project-card .owner {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+/* ====== CATEGORY BADGE ====== */
+.category-badge {
+  display: inline-block;
+  background-color: #1a59e0;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 0.6rem;
+  width: fit-content;
+  max-width: 100%;
+  white-space: nowrap;
+}
+/* ====== MODAL ====== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #1e1e2f;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  color: #fff;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  color: #82aaff;
+  margin-bottom: 1rem;
+}
+
+.modal-content .modal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.modal-buttons a {
+  background: #1a59e0;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.modal-buttons a:hover {
+  background: #133ea1;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 28px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+/* ====== TOGGLE BUTTON ====== */
+#dark-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(40, 40, 40, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: #82aaff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(130, 170, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  z-index: 999;
+}
+
+/* ====== ADD BUTTON ====== */
+#open-add-modal {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: #1a59e0;
+  color: white;
+  font-size: 28px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(26, 89, 224, 0.5);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+#open-add-modal:hover {
+  background-color: #133ea1;
+}
+
+/* ====== FORM ELEMENTS ====== */
+#add-project-form input,
+#add-project-form textarea,
+#add-project-form select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background-color: #1c1c1c;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+#add-project-form input:focus,
+#add-project-form textarea:focus,
+#add-project-form select:focus {
+  border-color: #82aaff;
+}
+
+#form-step-2 {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+#form-step-2 .modal-buttons {
+  margin-top: 2rem;
+  justify-content: flex-end;
+}
+
+#add-project-form button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#next-btn,
+#back-btn {
+  background-color: #444;
+  color: #fff;
+  margin-right: 1rem;
+}
+
+#submit-btn {
+  background-color: #1a59e0;
+  color: #fff;
+}
+
+#next-btn:hover,
+#back-btn:hover,
+#submit-btn:hover {
+  background-color: #133ea1;
+}
+
+/* ====== LOAD MORE BUTTON ====== */
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  margin-bottom: 20px;
+}
+
+#load-btn {
+  background-color: #2b2b2b;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+#load-btn:hover {
+  background-color: #1a59e0;
+  color: #fff;
+}
+
+/* ====== LIGHT MODE ====== */
+body.light-mode {
+  background-color: #f4f4f4;
+  color: #111;
+}
+
+body.light-mode .sidebar {
+  background-color: #e9e9ee;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .sidebar h2 {
+  color: #1a59e0;
+}
+
+body.light-mode .sidebar nav a {
+  color: #333;
+}
+
+body.light-mode .sidebar nav a:hover,
+body.light-mode .sidebar nav a.active {
+  background-color: #d0d8f3;
+  color: #000;
+}
+
+body.light-mode main.main-content {
+  background: #ffffff;
+}
+
+body.light-mode .project-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  color: #222;
+}
+
+body.light-mode .project-card h3 {
+  color: #0b234a;
+}
+
+body.light-mode .project-card p,
+body.light-mode .project-card .owner {
+  color: #222;
+}
+
+body.light-mode .project-card:hover {
+  background: #f0f6ff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .modal-content {
+  background: #fefefe;
+  color: #000;
+}
+
+body.light-mode #dark-toggle {
+  background: rgba(200, 200, 200, 0.9);
+  color: #1a59e0;
+}
+
+body.light-mode #dark-toggle:hover {
+  background: rgba(26, 115, 232, 0.8);
+  color: white;
+}
+
+body.light-mode #open-add-modal {
+  background-color: #3f6ee8;
+}
+
+body.light-mode #open-add-modal:hover {
+  background-color: #274ec9;
+}
+
+
+
+body.light-mode .category-badge {
+  background-color: #3f6ee8;
+}
+body.light-mode #load-btn {
+  background-color: #dbe3fc;
+  color: #1a59e0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode #load-btn:hover {
+  background-color: #b4c8fc;
+  color: #0c3edb;
+}
+
+body.light-mode #add-project-form input,
+body.light-mode #add-project-form textarea,
+body.light-mode #add-project-form select {
+  background-color: #fff;
+  color: #111;
+  border: 1px solid #ccc;
+}
+
+body.light-mode #next-btn,
+body.light-mode #back-btn {
+  background-color: #888;
+}
+
+body.light-mode #submit-btn {
+  background-color: #1a59e0;
+}

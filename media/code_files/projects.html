@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UzDevHub - Loyihalar</title>
+  <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+</head>
+<body {% if request.COOKIES.theme == "light" %}class="light-mode"{% endif %}>
+  {% include 'sidebar.html' %}
+
+  <main class="main-content">
+    <h1>Foydalanuvchilar loyihalari</h1>
+
+    <div class="project-grid">
+      {% for item in projects %}
+      <div class="project-card" onclick="openModal('{{ item.id }}')">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description|truncatechars:100 }}</p>
+        <div class="owner">👤 {{ item.owner_name }} {{ item.owner_last_name }}</div>
+        <div class="owner">📅 {{ item.datetime|date:"d.m.Y H:i" }}</div>
+        {% if item.category %}
+        <div class="owner" style="margin-top:5px; color:#82aaff;">🏷️ {{ item.category.name }}</div>
+        {% endif %}
+      </div>
+
+      <!-- Project Modal -->
+      <div class="modal" id="modal-{{ item.id }}">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('{{ item.id }}')">&times;</span>
+          <h2>{{ item.title }}</h2>
+          <p><strong>Muallif:</strong> {{ item.owner_name }} {{ item.owner_last_name }}</p>
+          <p>{{ item.description }}</p>
+          {% if item.category %}
+          <p><strong>Kategoriya:</strong> {{ item.category.name }}</p>
+          {% endif %}
+          <div class="modal-buttons">
+            {% if item.file %}
+            <a href="{{ item.file.url }}" download>📦 Faylni yuklash</a>
+            {% endif %}
+            {% if item.url %}
+            <a href="{{ item.url }}" target="_blank">🔗 Linkga o‘tish</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- + Qo‘shish Tugmasi -->
+    <button id="open-add-modal" class="add-button">+</button>
+
+    <!-- 2 Bosqichli Forma Modal -->
+    <div id="add-modal" class="modal">
+      <div class="modal-content">
+        <span id="close-modal" class="close">&times;</span>
+        <form id="add-project-form" enctype="multipart/form-data">
+          <!-- 1-bosqich -->
+          <div id="form-step-1">
+            <h2>1-bosqich</h2>
+            <input type="text" name="owner_name" placeholder="Ism" required />
+            <input type="text" name="owner_last_name" placeholder="Familya" required />
+            <input type="text" name="title" placeholder="Title" required />
+            <textarea name="description" placeholder="Description" required></textarea>
+
+
+
+            <button type="button" id="next-btn">Keyingi</button>
+          </div>
+
+          <!-- 2-bosqich -->
+          <div id="form-step-2" style="display: none;">
+            <h2>2-bosqich</h2>
+            <input type="file" name="file" required />
+            <input type="url" name="url" placeholder="Havola" />
+
+            <select name="category" required>
+              <option value="" disabled selected>Kategoriya tanlang</option>
+              {% for cat in categories %}
+              <option value="{{ cat.id }}">{{ cat.name }}</option>
+              {% endfor %}
+            </select>
+
+            <div class="modal-buttons">
+              <button type="button" id="back-btn">Ortga</button>
+              <button type="submit" id="submit-btn">Qo‘shish</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toggle tugmasi -->
+  <button id="dark-toggle" title="Rejimni almashtirish">☀️</button>
+
+  <!-- Scriptlar -->
+  <script src="{% static 'js/toggle.js' %}"></script>
+  <script src="{% static 'js/add.js' %}"></script>
+  <script>
+    function openModal(id) {
+      document.getElementById('modal-' + id).classList.add('show');
+    }
+    function closeModal(id) {
+      document.getElementById('modal-' + id).classList.remove('show');
+    }
+  </script>
+</body>
+</html>

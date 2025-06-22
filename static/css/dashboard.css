@@ -1,0 +1,286 @@
+/* ====== GLOBAL ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ====== SIDEBAR ====== */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: 180px;
+    background-color: #1b1b1b;
+    padding: 20px 10px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.7);
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.sidebar h2 {
+    color: #82aaff;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    user-select: none;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #cfd8fc;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.sidebar nav a:hover {
+    background-color: #2a52d8;
+    color: white;
+}
+
+/* ====== MAIN CONTENT ====== */
+main.main-content {
+    flex: 1;
+    padding: 2rem 3rem;
+    background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+    overflow-y: auto;
+    min-height: 100vh;
+}
+
+main.main-content h1 {
+    color: #82aaff;
+    margin-bottom: 2rem;
+    user-select: none;
+    text-shadow: 0 0 8px rgba(130,170,255,0.7);
+}
+
+/* ====== CARD GRID ====== */
+#card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem 1.2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ====== CARD ====== */
+
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(10,10,10,0.7);
+    color: #cfd8fc;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.card-body {
+    padding: 1rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card:hover {
+    background: rgba(26, 115, 232, 0.3);
+    box-shadow: 0 12px 36px rgba(26, 115, 232, 0.7);
+    color: white;
+}
+
+.card img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.card-body h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-body p {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.25;
+}
+
+.card-body a {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    margin-top: auto;
+    align-self: flex-start;
+    background-color: #1a59e0;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.card-body a:hover {
+    background-color: #133ea1;
+}
+
+.card-body small {
+    margin-top: 0.4rem;
+    display: block;
+    color: #9aa8d6;
+}
+
+/* ====== LOAD MORE BUTTON ====== */
+.load-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    margin-bottom: 20px;
+}
+
+#load-btn {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    font-size: 16px;
+    border-radius: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+#load-btn:hover {
+    background-color: #444;
+    transform: scale(1.05);
+}
+
+/* ====== DARK MODE TOGGLE ====== */
+#dark-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(40,40,40,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #82aaff;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(130,170,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    user-select: none;
+    z-index: 1000;
+}
+
+#dark-toggle:hover {
+    background: rgba(26,115,232,0.8);
+    color: white;
+}
+
+/* ====== LIGHT MODE ====== */
+body.light-mode {
+    background-color: #f4f4f6;
+    color: #222;
+}
+
+body.light-mode .sidebar {
+    background-color: #e9e9ee;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+}
+
+body.light-mode .sidebar h2 {
+    color: #1a59e0;
+}
+
+body.light-mode .sidebar nav a {
+    color: #333;
+}
+
+body.light-mode .sidebar nav a:hover {
+    background-color: #d0d8f3;
+    color: #000;
+}
+
+body.light-mode .main-content {
+    background: #fdfdff !important;
+}
+
+body.light-mode h1 {
+    color: #1a59e0;
+    text-shadow: none;
+}
+
+body.light-mode .card {
+    background: rgba(240, 242, 245, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #222;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    transition: all 0.3s ease;
+}
+
+body.light-mode .card:hover {
+    background: rgba(220, 230, 255, 0.75);
+    box-shadow: 0 12px 24px rgba(26, 115, 232, 0.15);
+    color: #000;
+}
+
+body.light-mode .card-body h3 {
+    color: #1a59e0;
+}
+
+body.light-mode .card-body a {
+    background-color: #1a59e0;
+    color: white;
+}
+
+body.light-mode .card-body a:hover {
+    background-color: #133ea1;
+}
+
+body.light-mode #dark-toggle {
+    background: rgba(200, 200, 200, 0.9);
+    color: #1a59e0;
+}
+
+body.light-mode #dark-toggle:hover {
+    background: rgba(26, 115, 232, 0.8);
+    color: white;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+    #card-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    #card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

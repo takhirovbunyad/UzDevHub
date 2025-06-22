@@ -1,0 +1,330 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: 180px;
+    background-color: #1b1b1b;
+    padding: 20px 10px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.7);
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.sidebar h2 {
+    color: #82aaff;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    user-select: none;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #cfd8fc;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.sidebar nav a:hover {
+    background-color: #2a52d8;
+    color: white;
+}
+/* Main content */
+main.main-content {
+    flex: 1;
+    padding: 2rem 3rem;
+    background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+    overflow-y: auto;
+}
+
+main.main-content h1 {
+    color: #82aaff;
+    margin-bottom: 2rem;
+    user-select: none;
+    text-shadow: 0 0 8px rgba(130,170,255,0.7);
+}
+
+/* Learn grid va card */
+.learn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.learn-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(10,10,10,0.7);
+    color: #cfd8fc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.learn-card:hover {
+    background: rgba(26, 115, 232, 0.3);
+    box-shadow: 0 12px 36px rgba(26, 115, 232, 0.7);
+    color: white;
+}
+
+.learn-card h3 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.learn-card p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+/* Learn button */
+.learn-button {
+    align-self: flex-start;
+    background-color: #1a59e0;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.learn-button:hover {
+    background-color: #133ea1;
+}
+
+/* Owner info */
+.button-with-owner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    max-height: 80px;
+    overflow: hidden;
+}
+
+.owner-info {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1rem;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.owner-info b,
+.owner-info span {
+    font-size: 0.95em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.owner-img-inline {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #82aaff;
+    box-shadow: 0 2px 6px rgba(130,170,255,0.3);
+    flex-shrink: 0;
+}
+
+.owner-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 40%;
+    object-fit: cover;
+    border: 2px solid #82aaff;
+}
+
+/* Badge */
+.badge-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-weight: 600;
+    background: #1a59e0;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.badge.new {
+    background: #28a745;
+}
+
+.badge.popular {
+    background: #ff5722;
+}
+
+/* Dark mode toggle */
+#dark-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(40,40,40,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #82aaff;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(130,170,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    user-select: none;
+    z-index: 999;
+}
+
+#dark-toggle:hover {
+    background: rgba(26,115,232,0.8);
+    color: white;
+}
+
+/* Light mode styles */
+body.light-mode {
+    background-color: #f4f4f6;
+    color: #222;
+}
+
+body.light-mode .sidebar {
+    background-color: #e9e9ee;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+}
+
+body.light-mode .sidebar h2 {
+    color: #1a59e0;
+}
+
+body.light-mode .sidebar nav a {
+    color: #333;
+}
+
+body.light-mode .sidebar nav a:hover,
+body.light-mode .sidebar nav a.active {
+    background-color: #d0d8f3;
+    color: #000;
+}
+
+body.light-mode main.main-content {
+    background: #fdfdff !important;
+}
+
+body.light-mode main.main-content h1 {
+    color: #1a59e0;
+    text-shadow: none;
+}
+
+body.light-mode .learn-card {
+    background: rgba(240, 242, 245, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #222;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    transition: all 0.3s ease;
+}
+
+body.light-mode .learn-card:hover {
+    background: rgba(220, 230, 255, 0.75);
+    box-shadow: 0 12px 24px rgba(26, 115, 232, 0.15);
+    color: #000;
+}
+
+body.light-mode .learn-card h3 {
+    color: #1a59e0;
+}
+
+body.light-mode .learn-button {
+    background-color: #1a59e0;
+    color: white;
+}
+
+body.light-mode .learn-button:hover {
+    background-color: #133ea1;
+}
+
+body.light-mode #dark-toggle {
+    background: rgba(200, 200, 200, 0.9);
+    color: #1a59e0;
+}
+
+body.light-mode #dark-toggle:hover {
+    background: rgba(26, 115, 232, 0.8);
+    color: white;
+}
+
+/* Card footer (owner va tugma) */
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+/* Responsiv grid */
+@media (max-width: 768px) {
+    .learn-grid {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        position: fixed;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 9999;
+        width: 220px;
+        height: 100vh;
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .learn-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UzDevHub - Dashboard</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+{% include 'sidebar.html' %}
+
+
+  <main class="main-content">
+    <h1>Salom, UzDevHubga xush kelibsiz!</h1>
+
+    <div id="card-container" class="card-grid">
+      {% for item in page_obj %}
+      <div class="card">
+        <img src="{{ item.preview.url }}" alt="{{ item.title }}">
+        <div class="card-body">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+          <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">Batafsil o‘qish</a>
+          <small>Manba: {{ item.source }}</small>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if page_obj.has_next %}
+    <div class="load-more">
+      <button id="load-btn" data-page="2"> KO`PROQ </button>
+    </div>
+    {% endif %}
+  </main>
+
+  <button id="dark-toggle" title="Toggle dark mode">☀️</button>
+
+  <script src="{% static 'js/toggle.js' %}"></script>
+  <script src="{% static 'js/load_more.js' %}"></script>
+
+</body>
+</html>

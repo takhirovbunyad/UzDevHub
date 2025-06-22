@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <title>📰 Yangiliklar</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/news.css' %}">
+
+</head>
+<body>
+
+{% include 'sidebar.html' %}
+
+<main class="main-content">
+  <h1>📰 Yangiliklar</h1>
+  <div class="cards-container">
+    {% if yangiliklar %}
+      {% for news in yangiliklar %}
+        <div class="glass-card">
+          <div class="card-header">{{ news.name }}</div>
+          <div class="card-body">{{ news.desc }}</div>
+          <div class="card-date">{{ news.created|date:"Y-m-d H:i" }}</div>
+          {% if news.link %}
+            <a class="card-button" href="{{ news.link }}" target="_blank" rel="noopener">Batafsil</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>Hech qanday yangilik yo‘q 😔</p>
+    {% endif %}
+  </div>
+</main>
+
+
+  <button id="dark-toggle" title="Toggle dark mode">☀️</button>
+
+  {% load static %}
+  <script src="{% static 'js/toggle.js' %}"></script>
+
+
+</body>
+</html>

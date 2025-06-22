@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8" />
+    <title>O‘rganish - Kurslar</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/learn.css' %}">
+</head>
+<body>
+
+{% include 'sidebar.html' %}
+
+    <main class="main-content">
+        <h1>🏫 O‘rganish</h1>
+
+        <div class="learn-grid">
+            {% for kurs in kurslar %}
+            <div class="learn-card">
+                <p class="owner-info">
+                    {% if kurs.owner_img %}
+                        <img src="{{ kurs.owner_img.url }}" alt="Owner rasm" class="owner-img-inline">
+                    {% endif %}
+                    <b>Owner:</b> {{ kurs.owner }}
+                </p>
+
+                <h3>{{ kurs.title }}</h3>
+                <p>{{ kurs.description }}</p>
+
+                <div class="button-with-owner">
+                    <a href="{{ kurs.url }}" target="_blank" class="learn-button">Kursga o'tish</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <button id="dark-toggle" title="Toggle dark mode">☀️</button>
+    <script src="{% static 'js/toggle.js' %}"></script>
+</body>
+</html>

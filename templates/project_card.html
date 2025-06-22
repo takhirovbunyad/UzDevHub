@@ -1,0 +1,29 @@
+<div class="project-card" onclick="openModal('{{ item.id }}')">
+  {% if item.category %}
+  <div class="category-badge">🏷️ {{ item.category.name }}</div>
+  {% endif %}
+  <h3>{{ item.title }}</h3>
+  <p>{{ item.description|truncatechars:100 }}</p>
+  <div class="owner">👤 {{ item.owner_name }} {{ item.owner_last_name }}</div>
+  <div class="owner">📅 {{ item.datetime|date:"d.m.Y H:i" }}</div>
+</div>
+
+<div class="modal" id="modal-{{ item.id }}">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('{{ item.id }}')">&times;</span>
+    <h2>{{ item.title }}</h2>
+    <p><strong>Muallif:</strong> {{ item.owner_name }} {{ item.owner_last_name }}</p>
+    <p>{{ item.description }}</p>
+    {% if item.category %}
+    <p><strong>Kategoriya:</strong> {{ item.category.name }}</p>
+    {% endif %}
+    <div class="modal-buttons">
+      {% if item.file %}
+      <a href="{{ item.file.url }}" download>📦 Faylni yuklash</a>
+      {% endif %}
+      {% if item.url %}
+      <a href="{{ item.url }}" target="_blank">🔗 Linkga o‘tish</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
