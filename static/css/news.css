@@ -14,19 +14,22 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
 }
-
 .sidebar {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    width: 225px; /* 180 * 1.25 */
-    background-color: #1b1b1b;
-    padding: 25px 12.5px; /* 20px 10px * 1.25 */
-    box-shadow: 2px 0 10px rgba(0,0,0,0.7);
-    user-select: none;
-    flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  width: 225px; /* 180 * 1.25 */
+  min-width: 225px;
+  max-width: 225px;
+  background-color: #1b1b1b;
+  padding: 25px 12.5px; /* 20px 10px * 1.25 */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+  user-select: none;
+  flex-shrink: 0;
+  font-size: 1rem;
 }
+
 
 .sidebar h2 {
     color: #82aaff;
