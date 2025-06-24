@@ -1,0 +1,17 @@
+/* Shaffof karta effektlar */
+.module {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(200,200,255,0.05);
+  margin-bottom: 24px;
+}
+
+/* Tugmalarni o‘zgartirish */
+input[type=submit], .button.default {
+  background: #1a59e0 !important;
+  color: white !important;
+  border-radius: 8px;
+  font-weight: bold;
+}
