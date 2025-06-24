@@ -136,4 +136,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Static files (CSS, JavaScript, Images)
 
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # bu joyga static fayllar collect bo‘ladi
 
