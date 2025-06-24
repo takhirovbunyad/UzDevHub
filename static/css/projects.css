@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 125%;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #121212;
@@ -20,9 +24,9 @@ body {
   top: 0;
   height: 100vh;
   overflow-y: auto;
-  width: 180px;
+  width: 225px; /* 180 * 1.25 */
   background-color: #1b1b1b;
-  padding: 20px 10px;
+  padding: 25px 12.5px; /* 20px 10px * 1.25 */
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
   user-select: none;
   flex-shrink: 0;
@@ -30,8 +34,8 @@ body {
 
 .sidebar h2 {
   color: #82aaff;
-  margin-bottom: 1.5rem;
-  font-size: 1.2rem;
+  margin-bottom: 1.875rem; /* 1.5rem * 1.25 */
+  font-size: 1.5rem; /* 1.2rem * 1.25 */
   user-select: none;
 }
 
@@ -39,12 +43,12 @@ body {
   display: block;
   color: #cfd8fc;
   text-decoration: none;
-  margin-bottom: 1rem;
-  padding: 0.4rem 0;
-  border-radius: 5px;
+  margin-bottom: 1.25rem; /* 1rem * 1.25 */
+  padding: 0.5rem 0; /* 0.4rem * 1.25 */
+  border-radius: 6.25px; /* 5px * 1.25 */
   transition: background-color 0.3s ease;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1.125rem; /* 0.9rem * 1.25 */
 }
 
 .sidebar nav a:hover {
@@ -55,32 +59,32 @@ body {
 /* ====== MAIN CONTENT ====== */
 main.main-content {
   flex: 1;
-  padding: 2rem;
+  padding: 2.5rem; /* 2rem * 1.25 */
   background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
   overflow-y: auto;
 }
 
 main.main-content h1 {
   color: #82aaff;
-  margin-bottom: 2rem;
-  text-shadow: 0 0 8px rgba(130, 170, 255, 0.7);
+  margin-bottom: 2.5rem; /* 2rem * 1.25 */
+  text-shadow: 0 0 10px rgba(130, 170, 255, 0.7);
 }
 
 /* ====== PROJECT GRID ====== */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(375px, 1fr)); /* 300px * 1.25 */
+  gap: 2.5rem; /* 2rem * 1.25 */
+  max-width: 1500px; /* 1200px * 1.25 */
   margin: 0 auto;
 }
 
 /* ====== PROJECT CARD ====== */
 .project-card {
   background: rgba(255, 255, 255, 0.07);
-  border-radius: 15px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.6);
+  border-radius: 18.75px; /* 15px * 1.25 */
+  padding: 1.875rem; /* 1.5rem * 1.25 */
+  box-shadow: 0 10px 30px rgba(10, 10, 10, 0.6); /* approx scale */
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
@@ -89,24 +93,24 @@ main.main-content h1 {
 
 .project-card:hover {
   background: rgba(26, 115, 232, 0.3);
-  box-shadow: 0 12px 36px rgba(26, 115, 232, 0.6);
+  box-shadow: 0 15px 45px rgba(26, 115, 232, 0.6);
 }
 
 .project-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem; /* 1.2rem * 1.25 */
+  margin-bottom: 0.625rem; /* 0.5rem * 1.25 */
   color: #82aaff;
 }
 
 .project-card p {
-  font-size: 0.95rem;
+  font-size: 1.1875rem; /* 0.95rem * 1.25 */
   line-height: 1.4;
   color: #ccc;
 }
 
 .project-card .owner {
-  margin-top: 1rem;
-  font-size: 0.85rem;
+  margin-top: 1.25rem; /* 1rem * 1.25 */
+  font-size: 1.0625rem; /* 0.85rem * 1.25 */
   color: #aaa;
 }
 
@@ -115,15 +119,16 @@ main.main-content h1 {
   display: inline-block;
   background-color: #1a59e0;
   color: white;
-  font-size: 0.8rem;
+  font-size: 1rem; /* 0.8rem * 1.25 */
   font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 6px;
-  margin-bottom: 0.6rem;
+  padding: 5px 12.5px; /* 4px 10px * 1.25 */
+  border-radius: 7.5px; /* 6px * 1.25 */
+  margin-bottom: 0.75rem; /* 0.6rem * 1.25 */
   width: fit-content;
   max-width: 100%;
   white-space: nowrap;
 }
+
 /* ====== MODAL ====== */
 .modal {
   position: fixed;
@@ -144,9 +149,9 @@ main.main-content h1 {
 
 .modal-content {
   background: #1e1e2f;
-  padding: 2rem;
-  border-radius: 15px;
-  max-width: 500px;
+  padding: 2.5rem; /* 2rem * 1.25 */
+  border-radius: 18.75px; /* 15px * 1.25 */
+  max-width: 625px; /* 500px * 1.25 */
   width: 90%;
   color: #fff;
   position: relative;
@@ -156,21 +161,21 @@ main.main-content h1 {
 
 .modal-content h2 {
   color: #82aaff;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem; /* 1rem * 1.25 */
 }
 
 .modal-content .modal-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.25rem; /* 1rem * 1.25 */
+  margin-top: 1.25rem; /* 1rem * 1.25 */
 }
 
 .modal-buttons a {
   background: #1a59e0;
   color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: 0.625rem 1.25rem; /* 0.5rem 1rem * 1.25 */
+  border-radius: 10px; /* 8px * 1.25 */
   text-decoration: none;
   font-weight: 600;
 }
@@ -181,9 +186,9 @@ main.main-content h1 {
 
 .modal-content .close {
   position: absolute;
-  top: 10px;
-  right: 14px;
-  font-size: 28px;
+  top: 12.5px; /* 10px * 1.25 */
+  right: 17.5px; /* 14px * 1.25 */
+  font-size: 35px; /* 28px * 1.25 */
   color: #aaa;
   cursor: pointer;
 }
@@ -191,17 +196,17 @@ main.main-content h1 {
 /* ====== TOGGLE BUTTON ====== */
 #dark-toggle {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: 1.25rem; /* 1rem * 1.25 */
+  right: 1.25rem;
   background: rgba(40, 40, 40, 0.8);
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px; /* 40px * 1.25 */
+  height: 50px;
   color: #82aaff;
-  font-size: 20px;
+  font-size: 25px; /* 20px * 1.25 */
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(130, 170, 255, 0.5);
+  box-shadow: 0 5px 15px rgba(130, 170, 255, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -212,16 +217,16 @@ main.main-content h1 {
 /* ====== ADD BUTTON ====== */
 #open-add-modal {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 55px;
-  height: 55px;
+  bottom: 2.5rem; /* 2rem * 1.25 */
+  right: 2.5rem;
+  width: 68.75px; /* 55px * 1.25 */
+  height: 68.75px;
   border-radius: 50%;
   background-color: #1a59e0;
   color: white;
-  font-size: 28px;
+  font-size: 35px; /* 28px * 1.25 */
   border: none;
-  box-shadow: 0 4px 15px rgba(26, 89, 224, 0.5);
+  box-shadow: 0 5px 19px rgba(26, 89, 224, 0.5);
   cursor: pointer;
   z-index: 1000;
   transition: background 0.3s ease;
@@ -236,13 +241,13 @@ main.main-content h1 {
 #add-project-form textarea,
 #add-project-form select {
   width: 100%;
-  padding: 0.6rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
+  padding: 0.75rem 1.25rem; /* 0.6rem 1rem * 1.25 */
+  margin-bottom: 1.25rem; /* 1rem * 1.25 */
+  border-radius: 10px; /* 8px * 1.25 */
   border: 1px solid #444;
   background-color: #1c1c1c;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.25rem; /* 1rem * 1.25 */
   outline: none;
 }
 
@@ -253,20 +258,20 @@ main.main-content h1 {
 }
 
 #form-step-2 {
-  max-height: 70vh;
+  max-height: 87.5vh; /* 70vh * 1.25 */
   overflow-y: auto;
-  padding-bottom: 1rem;
+  padding-bottom: 1.25rem; /* 1rem * 1.25 */
 }
 
 #form-step-2 .modal-buttons {
-  margin-top: 2rem;
+  margin-top: 2.5rem; /* 2rem * 1.25 */
   justify-content: flex-end;
 }
 
 #add-project-form button {
-  padding: 0.6rem 1.2rem;
+  padding: 0.75rem 1.5rem; /* 0.6rem 1.2rem * 1.25 */
   border: none;
-  border-radius: 8px;
+  border-radius: 10px; /* 8px * 1.25 */
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -276,7 +281,7 @@ main.main-content h1 {
 #back-btn {
   background-color: #444;
   color: #fff;
-  margin-right: 1rem;
+  margin-right: 1.25rem; /* 1rem * 1.25 */
 }
 
 #submit-btn {
@@ -294,19 +299,19 @@ main.main-content h1 {
 .load-more {
   display: flex;
   justify-content: center;
-  margin-top: 24px;
-  margin-bottom: 20px;
+  margin-top: 30px; /* 24px * 1.25 */
+  margin-bottom: 25px; /* 20px * 1.25 */
 }
 
 #load-btn {
   background-color: #2b2b2b;
   color: #fff;
   border: none;
-  padding: 12px 28px;
-  font-size: 16px;
-  border-radius: 16px;
+  padding: 15px 35px; /* 12px 28px * 1.25 */
+  font-size: 20px; /* 16px * 1.25 */
+  border-radius: 20px; /* 16px * 1.25 */
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 7.5px 22.5px rgba(0, 0, 0, 0.6);
   transition: all 0.3s ease;
   font-weight: bold;
 }
@@ -389,11 +394,10 @@ body.light-mode #open-add-modal:hover {
   background-color: #274ec9;
 }
 
-
-
 body.light-mode .category-badge {
   background-color: #3f6ee8;
 }
+
 body.light-mode #load-btn {
   background-color: #dbe3fc;
   color: #1a59e0;
