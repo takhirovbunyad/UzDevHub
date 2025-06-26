@@ -1,3 +1,4 @@
+/* ====== RESET ====== */
 * {
     margin: 0;
     padding: 0;
@@ -19,26 +20,25 @@ body {
 
 /* Sidebar */
 .sidebar {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
-  width: 225px; /* 180 * 1.25 */
-  min-width: 225px;
-  max-width: 225px;
-  background-color: #1b1b1b;
-  padding: 25px 12.5px; /* 20px 10px * 1.25 */
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
-  user-select: none;
-  flex-shrink: 0;
-  font-size: 1rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: 225px;
+    min-width: 225px;
+    max-width: 225px;
+    background-color: #1b1b1b;
+    padding: 25px 12.5px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+    user-select: none;
+    flex-shrink: 0;
+    font-size: 1rem;
 }
-
 
 .sidebar h2 {
     color: #82aaff;
-    margin-bottom: 1.875rem; /* 1.5rem * 1.25 */
-    font-size: 1.5rem; /* 1.2rem * 1.25 */
+    margin-bottom: 1.875rem;
+    font-size: 1.5rem;
     user-select: none;
 }
 
@@ -46,12 +46,12 @@ body {
     display: block;
     color: #cfd8fc;
     text-decoration: none;
-    margin-bottom: 1.25rem; /* 1rem * 1.25 */
-    padding: 0.5rem 0; /* 0.4rem * 1.25 */
-    border-radius: 6.25px; /* 5px * 1.25 */
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 0;
+    border-radius: 6.25px;
     transition: background-color 0.3s ease;
     font-weight: 600;
-    font-size: 1.125rem; /* 0.9rem * 1.25 */
+    font-size: 1.125rem;
 }
 
 .sidebar nav a:hover {
@@ -62,14 +62,14 @@ body {
 /* Main content */
 main.main-content {
     flex: 1;
-    padding: 2.5rem 3.75rem; /* 2rem 3rem * 1.25 */
+    padding: 2.5rem 3.75rem;
     background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
     overflow-y: auto;
 }
 
 main.main-content h1 {
     color: #82aaff;
-    margin-bottom: 2.5rem; /* 2rem * 1.25 */
+    margin-bottom: 2.5rem;
     user-select: none;
     text-shadow: 0 0 10px rgba(130,170,255,0.7);
 }
@@ -78,40 +78,46 @@ main.main-content h1 {
 .learn-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem 2.5rem; /* 2rem * 1.25 */
-    max-width: 1500px; /* 1200px * 1.25 */
+    gap: 2.5rem;
+    max-width: 1500px;
     margin: 0 auto;
 }
 
 .learn-card {
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 18.75px; /* 15px * 1.25 */
-    padding: 2.5rem; /* 2rem * 1.25 */
-    box-shadow: 0 10px 30px rgba(10,10,10,0.7); /* 0 8px 24px * 1.25 */
+    border-radius: 18.75px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(10,10,10,0.7);
     color: #cfd8fc;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     user-select: none;
     transition: background 0.3s ease, box-shadow 0.3s ease;
+    max-width: 600px; /* PC da kenglik */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .learn-card:hover {
     background: rgba(26, 115, 232, 0.3);
-    box-shadow: 0 15px 45px rgba(26, 115, 232, 0.7); /* 0 12px 36px * 1.25 */
+    box-shadow: 0 15px 45px rgba(26, 115, 232, 0.7);
     color: white;
 }
 
 .learn-card h3 {
-    margin-bottom: 1.25rem; /* 1rem * 1.25 */
-    font-size: 1.75rem; /* 1.4rem * 1.25 */
+    margin-bottom: 1.25rem;
+    font-size: 1.4rem; /* 0.8 x 1.75rem */
     font-weight: 700;
 }
 
 .learn-card p {
-    font-size: 1.25rem; /* 1rem * 1.25 */
-    margin-bottom: 1.25rem; /* 1rem * 1.25 */
+    font-size: 1rem; /* 0.8 x 1.25rem */
+    margin-bottom: 1.25rem;
     line-height: 1.4;
+    white-space: normal; /* pastga tushishi uchun */
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 /* Learn button */
@@ -119,12 +125,12 @@ main.main-content h1 {
     align-self: flex-start;
     background-color: #1a59e0;
     color: white;
-    padding: 0.75rem 1.5rem; /* 0.6rem 1.2rem * 1.25 */
-    border-radius: 10px; /* 8px * 1.25 */
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 600;
     transition: background 0.2s ease;
-    font-size: 1.125rem; /* biroz kattaroq qilish uchun */
+    font-size: 1.125rem;
 }
 
 .learn-button:hover {
@@ -136,62 +142,55 @@ main.main-content h1 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 1.25rem; /* 1rem * 1.25 */
-    margin-top: 1.5rem; /* 1.2rem * 1.25 */
-    max-height: 100px; /* 80px * 1.25 */
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    max-height: 100px;
     overflow: hidden;
 }
 
 .owner-info {
     display: flex;
     align-items: center;
-    gap: 0.75rem; /* 0.6rem * 1.25 */
-    font-size: 1.25rem; /* 1rem * 1.25 */
-    flex-wrap: nowrap;
+    gap: 0.75rem;
+    font-size: 1rem; /* 0.8 x 1.25rem */
+    flex-wrap: wrap; /* pastga tushishi uchun */
     max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: visible;
+    white-space: normal; /* pastga tushish uchun */
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .owner-info b,
 .owner-info span {
-    font-size: 1.1875rem; /* 0.95em * 1.25 */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 0.95rem; /* 0.8 x 1.1875rem */
+    overflow: visible;
+    white-space: normal;
+    text-overflow: clip;
 }
 
 .owner-img-inline {
-    width: 56.25px; /* 45px * 1.25 */
-    height: 56.25px; /* 45px * 1.25 */
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #82aaff;
-    box-shadow: 0 2.5px 7.5px rgba(130,170,255,0.3); /* 0 2px 6px */
+    box-shadow: 0 2.5px 7.5px rgba(130,170,255,0.3);
     flex-shrink: 0;
-}
-
-.owner-img {
-    width: 56.25px;
-    height: 56.25px;
-    border-radius: 50%; /* 40% -> 50% to keep circle shape at bigger size */
-    object-fit: cover;
-    border: 2px solid #82aaff;
 }
 
 /* Badge */
 .badge-row {
     display: flex;
-    gap: 0.625rem; /* 0.5rem * 1.25 */
-    margin-top: 1.25rem; /* 1rem * 1.25 */
+    gap: 0.625rem;
+    margin-top: 1.25rem;
     flex-wrap: wrap;
 }
 
 .badge {
-    font-size: 0.9375rem; /* 0.75rem * 1.25 */
-    padding: 0.375rem 0.75rem; /* 0.3rem 0.6rem * 1.25 */
-    border-radius: 15px; /* 12px * 1.25 */
+    font-size: 0.9375rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 15px;
     font-weight: 600;
     background: #1a59e0;
     color: white;
@@ -209,15 +208,15 @@ main.main-content h1 {
 /* Dark mode toggle */
 #dark-toggle {
     position: fixed;
-    top: 1.25rem; /* 1rem * 1.25 */
+    top: 1.25rem;
     right: 1.25rem;
     background: rgba(40,40,40,0.8);
     border: none;
     border-radius: 50%;
-    width: 50px; /* 40px * 1.25 */
+    width: 50px;
     height: 50px;
     color: #82aaff;
-    font-size: 25px; /* 20px * 1.25 */
+    font-size: 25px;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(130,170,255,0.5);
     display: flex;
@@ -306,119 +305,71 @@ body.light-mode #dark-toggle:hover {
     color: white;
 }
 
-/* Card footer (owner va tugma) */
+/* Card footer */
 .card-footer {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 1.25rem; /* 1rem * 1.25 */
+    gap: 1.25rem;
     margin-top: auto;
 }
 
-/* Responsiv grid */
+/* ===== RESPONSIVE ===== */
+
 @media (max-width: 768px) {
+
     .learn-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        padding: 1rem;
+        gap: 1.5rem;
+        justify-content: center; /* Mana shu qo‘shildi */
+        justify-items: center; /* Yana qo‘shib qo‘y */
     }
-    .sidebar {
-        position: fixed;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        z-index: 9999;
-        width: 275px; /* 220px * 1.25 */
-        height: 100vh;
+
+    .learn-card {
+        width: 90vw;
+        max-width: none;
+        padding: 1.5rem;
+        font-size: 0.9rem;
+        margin: 0 auto; /* markazlashtirish uchun */
     }
-    .sidebar.open {
-        transform: translateX(0);
+
+    /* Qolgan stillar o'zgarmaydi */
+    .learn-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .learn-card p {
+        white-space: normal;
+        font-size: 1rem;
+    }
+
+    .learn-button {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.25rem;
+    }
+
+    .owner-info {
+        font-size: 0.95rem;
+        flex-wrap: wrap;
+        white-space: normal;
+    }
+
+    .owner-img-inline {
+        width: 45px;
+        height: 45px;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
     }
 }
 
+/* Planshetlar uchun 2 ustun */
 @media (min-width: 769px) and (max-width: 1024px) {
     .learn-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-}
-/* Mobil uchun responsivlik */
-@media (max-width: 768px) {
-  /* Sidebar */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 9999;
-    width: 225px; /* yoki kerak bo'lsa biroz kengroq */
-    height: 100vh;
-    background-color: #1b1b1b;
-  }
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  /* Learn gridni bitta ustunga tushirish */
-  .learn-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem;
-    max-width: 100%;
-    padding: 0 1rem;
-    justify-items: center; /* Cardlarni markazga joylash */
-  }
-
-  /* Cardlar o'lchamini kichraytirish va markazga joylash */
-  .learn-card {
-    width: 100%; /* to‘liq kenglik */
-    max-width: 400px; /* maksimal kenglik beramiz */
-    padding: 1.5rem;
-    font-size: 0.9rem; /* matnni kichraytiramiz */
-    border-radius: 15px;
-    box-shadow: 0 8px 24px rgba(10, 10, 10, 0.5);
-  }
-
-  /* Carddagi sarlavha va matnlarni kichraytirish */
-  .learn-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-  }
-
-  .learn-card p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-  }
-
-  /* Buttonlarni kichraytirish */
-  .learn-button {
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
-  }
-
-  /* Card footer elementi (owner info va tugma) joylashuvi moslashuvi */
-  .card-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
-  }
-
-  /* Owner info elementlarini ham kichraytirish */
-  .owner-info {
-    font-size: 1rem;
-  }
-
-  .owner-info b,
-  .owner-info span {
-    font-size: 0.95rem;
-  }
-
-  .owner-img-inline {
-    width: 45px;
-    height: 45px;
-  }
-}
-
-/* Planshet va kichik ekran uchun ikki ustun */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .learn-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
