@@ -1,92 +1,117 @@
-{% load static %}
+<!-- sidebar.html -->
+<div class="mobile-header">
+  <div class="mobile-menu-toggle" onclick="toggleSidebar()">☰</div>
+</div>
 
-<style>
-  .sidebar {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    width: 180px;
-    background-color: #1b1b1b;
-    padding: 20px 10px;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
-    user-select: none;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-    z-index: 1000;
-    font-size: 1rem;
-  }
-  .sidebar.hidden {
-    transform: translateX(-100%);
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-  }
-  #sidebar-toggle {
-    display: none;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    background: #1a59e0;
-    border: none;
-    border-radius: 5px;
-    width: 40px;
-    height: 40px;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1100;
-    user-select: none;
-    transition: background 0.3s ease;
-  }
-  #sidebar-toggle:hover {
-    background: #133ea1;
-  }
-  @media (max-width: 768px) {
-    .sidebar {
-      position: fixed;
-      transform: translateX(-100%);
-      width: 70%;
-      max-width: 280px;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      padding: 1.5rem 1rem;
-      box-shadow: 4px 0 12px rgba(0,0,0,0.8);
-      background-color: #1b1b1b;
-      font-size: 0.9rem;
-    }
-    .sidebar.show {
-      transform: translateX(0);
-    }
-    #sidebar-toggle {
-      display: flex;
-    }
-  }
-</style>
-
-
-<!-- Toggle tugma -->
-<button id="sidebar-toggle" title="Menyu ochish">☰</button>
-
-<!-- Sidebar kontenti -->
-<aside class="sidebar" id="main-sidebar">
-  <h2>Menyu</h2>
+<aside class="sidebar" id="sidebar">
+  <h2>UzDevHub</h2>
   <nav>
     <a href="/">🏠 Bosh sahifa</a>
     <a href="/news">📰 Yangiliklar</a>
     <a href="/learn">🏫 Kurslar</a>
-    <a href="/projects">📂 loyihalar</a>
+    <a href="/projects">📂 Loyihalar</a>
     <a href="/about">ℹ️ Biz haqimizda</a>
   </nav>
 </aside>
 
-<script>
-  // Sidebar toggleni boshqarish
-  const sidebarToggleBtn = document.getElementById('sidebar-toggle');
-  const sidebar = document.getElementById('main-sidebar');
+<style>
+  /* ===== MOBIL HEADER (3 nuqta) ===== */
+  .mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    background: transparent;
+  }
 
-  sidebarToggleBtn.addEventListener('click', () => {
-    sidebar.classList.toggle('show');
-  });
+  .mobile-menu-toggle {
+    display: none;
+    font-size: 28px;
+    background: rgba(30, 30, 30, 0.85);
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1101;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: 225px;
+    min-width: 225px;
+    max-width: 225px;
+    background-color: #1b1b1b;
+    padding: 25px 12.5px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+    user-select: none;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .sidebar h2 {
+    color: #82aaff;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sidebar nav a {
+    display: block;
+    color: #cfd8fc;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding: 8px 0;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+
+  .sidebar nav a:hover {
+    background-color: #2a52d8;
+    color: white;
+  }
+
+  /* ===== MOBIL USULLAR ===== */
+  @media (max-width: 768px) {
+    .mobile-menu-toggle {
+      display: block;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      z-index: 1099;
+      height: 100vh;
+      width: 220px;
+      padding-top: 60px;
+      transition: left 0.3s ease;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.8);
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+  }
+</style>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("open");
+  }
 </script>

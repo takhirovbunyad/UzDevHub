@@ -1,11 +1,14 @@
+/* ====== GLOBAL ====== */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 html {
     font-size: 125%;
 }
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #121212;
@@ -14,51 +17,49 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
 }
+
+/* Sidebar */
 .sidebar {
   position: sticky;
   top: 0;
   height: 100vh;
   overflow-y: auto;
-  width: 225px; /* 180 * 1.25 */
+  width: 225px;
   min-width: 225px;
-  max-width: 225px;
   background-color: #1b1b1b;
-  padding: 25px 12.5px; /* 20px 10px * 1.25 */
+  padding: 25px 12px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
-  user-select: none;
   flex-shrink: 0;
-  font-size: 1rem;
 }
 
-
 .sidebar h2 {
-    color: #82aaff;
-    margin-bottom: 1.875rem; /* 1.5rem * 1.25 */
-    font-size: 1.5rem; /* 1.2rem * 1.25 */
-    user-select: none;
+  color: #82aaff;
+  margin-bottom: 30px;
+  font-size: 1.4rem;
 }
 
 .sidebar nav a {
-    display: block;
-    color: #cfd8fc;
-    text-decoration: none;
-    margin-bottom: 1.25rem; /* 1rem * 1.25 */
-    padding: 0.5rem 0; /* 0.4rem * 1.25 */
-    border-radius: 6.25px; /* 5px * 1.25 */
-    transition: background-color 0.3s ease;
-    font-weight: 600;
-    font-size: 1.125rem; /* 0.9rem * 1.25 */
+  display: block;
+  color: #a8b0d0; /* biroz quyuqroq */
+  text-decoration: none;
+  margin-bottom: 20px;
+  padding: 8px 0;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: background 0.3s ease;
 }
 
 .sidebar nav a:hover {
-    background-color: #2a52d8;
-    color: white;
+  background-color: #2a52d8;
+  color: #e6e6e6; /* biroz ochroq, lekin oq emas */
 }
+
 
 /* Main content */
 main.main-content {
     flex: 1;
-    padding: 2.5rem 3.75rem; /* 2rem 3rem * 1.25 */
+    padding: 2.5rem 3.75rem;
     background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
     min-height: 100vh;
     transition: background-color 0.3s ease;
@@ -66,31 +67,32 @@ main.main-content {
 
 main.main-content h1 {
     color: #82aaff;
-    margin-bottom: 2.5rem; /* 2rem * 1.25 */
+    margin-bottom: 2.5rem;
     user-select: none;
     text-shadow: 0 0 10px rgba(130,170,255,0.7);
 }
 
-/* Yangiliklar kartalari */
+/* Cards container */
 .cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.25rem; /* 1rem * 1.25 */
-    max-width: 1500px; /* 1200px * 1.25 */
+    gap: 1.25rem;
+    max-width: 1500px;
     width: 100%;
 }
 
+/* Glass card */
 .glass-card {
     background: rgba(19, 35, 66, 0.8);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-radius: 25px; /* 20px * 1.25 */
+    border-radius: 25px;
     border: 1px solid rgba(56, 94, 151, 0.7);
-    padding: 1.875rem; /* 1.5rem * 1.25 */
-    width: calc(25% - 1.25rem); /* 1rem * 1.25 */
+    padding: 1.875rem;
+    width: calc(25% - 1.25rem);
     color: #cfd8fc;
-    box-shadow: 0 10px 40px rgba(46, 81, 151, 0.6); /* 0 8px 32px * 1.25 */
+    box-shadow: 0 10px 40px rgba(46, 81, 151, 0.6);
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     box-sizing: border-box;
     display: flex;
@@ -101,39 +103,43 @@ main.main-content h1 {
 .glass-card:hover {
     background: rgba(36, 59, 96, 0.9);
     box-shadow: 0 10px 40px rgba(46, 81, 151, 0.8);
-    transform: translateY(-12.5px); /* -10px * 1.25 */
+    transform: translateY(-12.5px);
 }
 
+/* Card text styling dashboardga o’xshash */
 .card-header {
-    font-size: 1.5rem; /* 1.2rem * 1.25 */
+    font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 0.625rem; /* 0.5rem * 1.25 */
+    margin-bottom: 0.625rem;
+    color: #82aaff;
 }
 
 .card-body {
-    font-size: 1.125rem; /* 0.9rem * 1.25 */
-    margin-bottom: 1rem; /* 0.8rem * 1.25 */
+    font-size: 1rem;
+    margin-bottom: 1rem;
     flex-grow: 1;
+    color: #d0d0d0;
+    line-height: 1.4;
 }
 
 .card-date {
-    font-size: 1rem; /* 0.8rem * 1.25 */
+    font-size: 1rem;
     color: #a3b2e2;
-    margin-bottom: 1.25rem; /* 1rem * 1.25 */
+    margin-bottom: 1.25rem;
     user-select: none;
 }
 
 .card-button {
     background-color: #1a59e0;
     color: white;
-    padding: 0.625rem 1.25rem; /* 0.5rem 1rem * 1.25 */
+    padding: 0.625rem 1.25rem;
     border: none;
-    border-radius: 10px; /* 8px * 1.25 */
+    border-radius: 10px;
     text-decoration: none;
     text-align: center;
     transition: background 0.2s ease;
     user-select: none;
-    font-size: 1.125rem; /* biroz kattaroq */
+    font-size: 1.125rem;
 }
 
 .card-button:hover {
@@ -143,15 +149,15 @@ main.main-content h1 {
 /* Dark mode toggle */
 #dark-toggle {
     position: fixed;
-    top: 1.25rem; /* 1rem * 1.25 */
+    top: 1.25rem;
     right: 1.25rem;
     background: rgba(40,40,40,0.8);
     border: none;
     border-radius: 50%;
-    width: 50px; /* 40px * 1.25 */
+    width: 50px;
     height: 50px;
     color: #82aaff;
-    font-size: 25px; /* 20px * 1.25 */
+    font-size: 25px;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(130,170,255,0.5);
     display: flex;
@@ -159,7 +165,7 @@ main.main-content h1 {
     justify-content: center;
     transition: background 0.3s ease;
     user-select: none;
-    z-index: 999;
+    z-index: 1200; /* z-index ni 1200 qildim */
 }
 
 #dark-toggle:hover {
@@ -199,4 +205,24 @@ body.light-mode #dark-toggle {
 body.light-mode #dark-toggle:hover {
     background: rgba(26,115,232,0.8);
     color: white;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+    /* Mobilda kartalar ketma-ket */
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .glass-card {
+        width: 100% !important; /* ketma-ket bo‘lsin, eni to‘liq */
+        min-height: auto;
+        font-size: 0.9rem;
+        padding: 1.25rem;
+        box-shadow: 0 6px 20px rgba(46, 81, 151, 0.5);
+    }
+    .card-body {
+        font-size: 0.9rem;
+        color: #c0c0c0;
+    }
 }
