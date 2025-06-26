@@ -338,3 +338,87 @@ body.light-mode #dark-toggle:hover {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+/* Mobil uchun responsivlik */
+@media (max-width: 768px) {
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 9999;
+    width: 225px; /* yoki kerak bo'lsa biroz kengroq */
+    height: 100vh;
+    background-color: #1b1b1b;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Learn gridni bitta ustunga tushirish */
+  .learn-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+    max-width: 100%;
+    padding: 0 1rem;
+    justify-items: center; /* Cardlarni markazga joylash */
+  }
+
+  /* Cardlar o'lchamini kichraytirish va markazga joylash */
+  .learn-card {
+    width: 100%; /* to‘liq kenglik */
+    max-width: 400px; /* maksimal kenglik beramiz */
+    padding: 1.5rem;
+    font-size: 0.9rem; /* matnni kichraytiramiz */
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(10, 10, 10, 0.5);
+  }
+
+  /* Carddagi sarlavha va matnlarni kichraytirish */
+  .learn-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .learn-card p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  /* Buttonlarni kichraytirish */
+  .learn-button {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  /* Card footer elementi (owner info va tugma) joylashuvi moslashuvi */
+  .card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  /* Owner info elementlarini ham kichraytirish */
+  .owner-info {
+    font-size: 1rem;
+  }
+
+  .owner-info b,
+  .owner-info span {
+    font-size: 0.95rem;
+  }
+
+  .owner-img-inline {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Planshet va kichik ekran uchun ikki ustun */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .learn-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
