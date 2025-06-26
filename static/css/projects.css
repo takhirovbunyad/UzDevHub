@@ -447,24 +447,27 @@ body.light-mode #submit-btn {
     transform: translateX(0);
   }
 
-  /* Project grid bitta ustunga tushadi */
+@media (max-width: 768px) {
   .project-grid {
     grid-template-columns: 1fr !important;
+    padding: 1rem;
     gap: 1.5rem;
-    max-width: 100%;
-    padding: 0 1rem;
-    justify-items: center; /* cardlarni markazga joylash */
+    justify-content: center;
+    justify-items: center;
   }
 
-  /* Project card o'lchamini biroz kichraytirish */
   .project-card {
-    width: 100%;
-    max-width: 400px;
+    width: 90vw;
+    max-width: none;
     padding: 1.5rem;
     font-size: 0.9rem;
+    margin: 0 auto;
     border-radius: 15px;
     box-shadow: 0 8px 24px rgba(10, 10, 10, 0.5);
+    box-sizing: border-box;
   }
+}
+
 
   /* Carddagi sarlavha va matnlarni kichraytirish */
   .project-card h3 {
