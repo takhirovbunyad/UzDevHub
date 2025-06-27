@@ -1,14 +1,7 @@
-from django.http import JsonResponse
-from django.shortcuts import render
+
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from django.http import JsonResponse
-import json
-
-from django.template.loader import render_to_string
-
 from .models import News, Kurs, Dash , Projects , Category
-from .forms import Pro_form
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import Pro_form
@@ -140,3 +133,13 @@ def load_more_projects(request):
         """
     return HttpResponse(html)
 
+def project_detail(request, year, month, day, slug):
+    project = get_object_or_404(
+        Projects,
+        slug=slug,
+        status='published',
+        publish__year=year,
+        publish__month=month,
+        publish__day=day
+    )
+    return render(request, 'projects/detail.html', {'project': project})

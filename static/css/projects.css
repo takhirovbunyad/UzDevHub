@@ -68,10 +68,16 @@ main.main-content {
 }
 
 main.main-content h1 {
-  color: #82aaff;
-  margin-bottom: 2.5rem; /* 2rem * 1.25 */
-  text-shadow: 0 0 10px rgba(130, 170, 255, 0.7);
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #82aaff; /* << Bu rang UzDevHub style */
+    text-shadow: 0 0 5px rgba(26, 89, 224, 0.3); /* rangni to‘qroq qiladi */
+    margin-left: 4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.25rem;
+    text-align: left;
 }
+
 
 /* ====== PROJECT GRID ====== */
 .project-grid {
@@ -94,9 +100,11 @@ main.main-content h1 {
   flex-direction: column;
 }
 
-.project-card:hover {
-  background: rgba(26, 115, 232, 0.3);
-  box-shadow: 0 15px 45px rgba(26, 115, 232, 0.6);
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    background: rgba(26, 115, 232, 0.3);
+    box-shadow: 0 15px 45px rgba(26, 115, 232, 0.6);
+  }
 }
 
 .project-card h3 {
@@ -214,7 +222,7 @@ main.main-content h1 {
   align-items: center;
   justify-content: center;
   transition: background 0.3s ease;
-  z-index: 999;
+  z-index: 99999;
 }
 
 /* ====== ADD BUTTON ====== */
@@ -352,6 +360,11 @@ body.light-mode .sidebar nav a.active {
 body.light-mode main.main-content {
   background: #ffffff;
 }
+body.light-mode main.main-content h1 {
+    color: #1a59e0 !important;
+    text-shadow: none;
+}
+
 
 body.light-mode .project-card {
   background: #fff;
@@ -430,7 +443,6 @@ body.light-mode #submit-btn {
 }
 /* ====== RESPONSIVE: Mobil uchun ====== */
 @media (max-width: 768px) {
-  /* Sidebar mobilda yashirin, toggle bilan */
   .sidebar {
     position: fixed;
     top: 0;
@@ -440,12 +452,13 @@ body.light-mode #submit-btn {
     background-color: #1b1b1b;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
-    z-index: 9999;
+    z-index: 999;
     padding: 25px 12.5px;
   }
   .sidebar.open {
     transform: translateX(0);
   }
+}
 
 @media (max-width: 768px) {
   .project-grid {

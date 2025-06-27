@@ -1,6 +1,9 @@
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import ListView
 from django.db import models
-from django.db.models import FileField
-
+from django.contrib.auth.models import User
+from django.utils import timezone
+from django.urls import reverse
 
 class News(models.Model):
     name = models.CharField("Sarlavha", max_length=50)
@@ -38,7 +41,16 @@ class Dash(models.Model):
 
 
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status='published')
+
+
 class Projects(models.Model):
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published')
+    )
     owner_name = models.CharField('Ismingiz', max_length=20)
     owner_last_name = models.CharField('Familyangiz', max_length=20)
     title = models.CharField('Sarlavha', max_length=70)
@@ -48,6 +60,28 @@ class Projects(models.Model):
     datetime = models.DateTimeField("Qo‘shilgan vaqti", auto_now_add=True)
     file = models.FileField(upload_to='code_files/')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    slug = models.SlugField(max_length=255, unique_for_date="publish")
+    publish = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='draft')
+
+    class Meta:
+        ordering = ('-publish',)
 
     def __str__(self):
         return self.title
+
+    objects = models.Manager()
+    published = PublishedManager()
+
+    def get_absolute_url(self):
+        return reverse("projects:project_detail", args=[
+            self.publish.year,
+            self.publish.month,
+            self.publish.day,
+            self.slug
+        ])
+
+pros = Projects.objects.filter(status='published')
+p_pros = Projects.published.all()
