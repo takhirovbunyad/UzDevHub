@@ -24,11 +24,11 @@ body {
   top: 0;
   height: 100vh;
   overflow-y: auto;
-  width: 225px; /* 180 * 1.25 */
+  width: 225px;
   min-width: 225px;
   max-width: 225px;
   background-color: #1b1b1b;
-  padding: 25px 12.5px; /* 20px 10px * 1.25 */
+  padding: 25px 12.5px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
   user-select: none;
   flex-shrink: 0;
@@ -37,8 +37,8 @@ body {
 
 .sidebar h2 {
   color: #82aaff;
-  margin-bottom: 1.875rem; /* 1.5rem * 1.25 */
-  font-size: 1.5rem; /* 1.2rem * 1.25 */
+  margin-bottom: 1.875rem;
+  font-size: 1.5rem;
   user-select: none;
 }
 
@@ -46,12 +46,12 @@ body {
   display: block;
   color: #cfd8fc;
   text-decoration: none;
-  margin-bottom: 1.25rem; /* 1rem * 1.25 */
-  padding: 0.5rem 0; /* 0.4rem * 1.25 */
-  border-radius: 6.25px; /* 5px * 1.25 */
+  margin-bottom: 1.25rem;
+  padding: 0.5rem 0;
+  border-radius: 6.25px;
   transition: background-color 0.3s ease;
   font-weight: 600;
-  font-size: 1.125rem; /* 0.9rem * 1.25 */
+  font-size: 1.125rem;
 }
 
 .sidebar nav a:hover {
@@ -62,38 +62,37 @@ body {
 /* ====== MAIN CONTENT ====== */
 main.main-content {
   flex: 1;
-  padding: 2.5rem; /* 2rem * 1.25 */
+  padding: 2.5rem;
   background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
   overflow-y: auto;
 }
 
 main.main-content h1 {
-    font-size: 2.25rem;
-    font-weight: bold;
-    color: #82aaff; /* << Bu rang UzDevHub style */
-    text-shadow: 0 0 5px rgba(26, 89, 224, 0.3); /* rangni to‘qroq qiladi */
-    margin-left: 4rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.25rem;
-    text-align: left;
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: #82aaff;
+  text-shadow: 0 0 5px rgba(26, 89, 224, 0.3);
+  margin-left: 4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+  text-align: left;
 }
-
 
 /* ====== PROJECT GRID ====== */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(375px, 1fr)); /* 300px * 1.25 */
-  gap: 2.5rem; /* 2rem * 1.25 */
-  max-width: 1500px; /* 1200px * 1.25 */
+  grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+  gap: 2.5rem;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
 /* ====== PROJECT CARD ====== */
 .project-card {
   background: rgba(255, 255, 255, 0.07);
-  border-radius: 18.75px; /* 15px * 1.25 */
-  padding: 1.875rem; /* 1.5rem * 1.25 */
-  box-shadow: 0 10px 30px rgba(10, 10, 10, 0.6); /* approx scale */
+  border-radius: 18.75px;
+  padding: 1.875rem;
+  box-shadow: 0 10px 30px rgba(10, 10, 10, 0.6);
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
@@ -108,20 +107,20 @@ main.main-content h1 {
 }
 
 .project-card h3 {
-  font-size: 1.5rem; /* 1.2rem * 1.25 */
-  margin-bottom: 0.625rem; /* 0.5rem * 1.25 */
+  font-size: 1.5rem;
+  margin-bottom: 0.625rem;
   color: #82aaff;
 }
 
 .project-card p {
-  font-size: 1.1875rem; /* 0.95rem * 1.25 */
+  font-size: 1.1875rem;
   line-height: 1.4;
   color: #ccc;
 }
 
 .project-card .owner {
-  margin-top: 1.25rem; /* 1rem * 1.25 */
-  font-size: 1.0625rem; /* 0.85rem * 1.25 */
+  margin-top: 1.25rem;
+  font-size: 1.0625rem;
   color: #aaa;
 }
 
@@ -130,13 +129,12 @@ main.main-content h1 {
   display: inline-block;
   background-color: #1a59e0;
   color: white;
-  font-size: 1rem; /* 0.8rem * 1.25 */
+  font-size: 1rem;
   font-weight: 600;
-  padding: 5px 12.5px; /* 4px 10px * 1.25 */
-  border-radius: 7.5px; /* 6px * 1.25 */
-  margin-bottom: 0.75rem; /* 0.6rem * 1.25 */
+  padding: 5px 12.5px;
+  border-radius: 7.5px;
+  margin-bottom: 0.75rem;
   width: fit-content;
-  max-width: 100%;
   white-space: nowrap;
 }
 
@@ -160,9 +158,9 @@ main.main-content h1 {
 
 .modal-content {
   background: #1e1e2f;
-  padding: 2.5rem; /* 2rem * 1.25 */
-  border-radius: 18.75px; /* 15px * 1.25 */
-  max-width: 625px; /* 500px * 1.25 */
+  padding: 2.5rem;
+  border-radius: 18.75px;
+  max-width: 625px;
   width: 90%;
   color: #fff;
   position: relative;
@@ -172,21 +170,21 @@ main.main-content h1 {
 
 .modal-content h2 {
   color: #82aaff;
-  margin-bottom: 1.25rem; /* 1rem * 1.25 */
+  margin-bottom: 1.25rem;
 }
 
 .modal-content .modal-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem; /* 1rem * 1.25 */
-  margin-top: 1.25rem; /* 1rem * 1.25 */
+  gap: 1.25rem;
+  margin-top: 1.25rem;
 }
 
 .modal-buttons a {
   background: #1a59e0;
   color: white;
-  padding: 0.625rem 1.25rem; /* 0.5rem 1rem * 1.25 */
-  border-radius: 10px; /* 8px * 1.25 */
+  padding: 0.625rem 1.25rem;
+  border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
 }
@@ -197,9 +195,9 @@ main.main-content h1 {
 
 .modal-content .close {
   position: absolute;
-  top: 12.5px; /* 10px * 1.25 */
-  right: 17.5px; /* 14px * 1.25 */
-  font-size: 35px; /* 28px * 1.25 */
+  top: 12.5px;
+  right: 17.5px;
+  font-size: 35px;
   color: #aaa;
   cursor: pointer;
 }
@@ -207,15 +205,15 @@ main.main-content h1 {
 /* ====== TOGGLE BUTTON ====== */
 #dark-toggle {
   position: fixed;
-  top: 1.25rem; /* 1rem * 1.25 */
+  top: 1.25rem;
   right: 1.25rem;
   background: rgba(40, 40, 40, 0.8);
   border: none;
   border-radius: 50%;
-  width: 50px; /* 40px * 1.25 */
+  width: 50px;
   height: 50px;
   color: #82aaff;
-  font-size: 25px; /* 20px * 1.25 */
+  font-size: 25px;
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(130, 170, 255, 0.5);
   display: flex;
@@ -228,14 +226,14 @@ main.main-content h1 {
 /* ====== ADD BUTTON ====== */
 #open-add-modal {
   position: fixed;
-  bottom: 2.5rem; /* 2rem * 1.25 */
+  bottom: 2.5rem;
   right: 2.5rem;
-  width: 68.75px; /* 55px * 1.25 */
+  width: 68.75px;
   height: 68.75px;
   border-radius: 50%;
   background-color: #1a59e0;
   color: white;
-  font-size: 35px; /* 28px * 1.25 */
+  font-size: 35px;
   border: none;
   box-shadow: 0 5px 19px rgba(26, 89, 224, 0.5);
   cursor: pointer;
@@ -252,13 +250,13 @@ main.main-content h1 {
 #add-project-form textarea,
 #add-project-form select {
   width: 100%;
-  padding: 0.75rem 1.25rem; /* 0.6rem 1rem * 1.25 */
-  margin-bottom: 1.25rem; /* 1rem * 1.25 */
-  border-radius: 10px; /* 8px * 1.25 */
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: 10px;
   border: 1px solid #444;
   background-color: #1c1c1c;
   color: #fff;
-  font-size: 1.25rem; /* 1rem * 1.25 */
+  font-size: 1.25rem;
   outline: none;
 }
 
@@ -269,20 +267,20 @@ main.main-content h1 {
 }
 
 #form-step-2 {
-  max-height: 87.5vh; /* 70vh * 1.25 */
+  max-height: 87.5vh;
   overflow-y: auto;
-  padding-bottom: 1.25rem; /* 1rem * 1.25 */
+  padding-bottom: 1.25rem;
 }
 
 #form-step-2 .modal-buttons {
-  margin-top: 2.5rem; /* 2rem * 1.25 */
+  margin-top: 2.5rem;
   justify-content: flex-end;
 }
 
 #add-project-form button {
-  padding: 0.75rem 1.5rem; /* 0.6rem 1.2rem * 1.25 */
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 10px; /* 8px * 1.25 */
+  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -292,7 +290,7 @@ main.main-content h1 {
 #back-btn {
   background-color: #444;
   color: #fff;
-  margin-right: 1.25rem; /* 1rem * 1.25 */
+  margin-right: 1.25rem;
 }
 
 #submit-btn {
@@ -310,17 +308,17 @@ main.main-content h1 {
 .load-more {
   display: flex;
   justify-content: center;
-  margin-top: 30px; /* 24px * 1.25 */
-  margin-bottom: 25px; /* 20px * 1.25 */
+  margin-top: 30px;
+  margin-bottom: 25px;
 }
 
 #load-btn {
   background-color: #2b2b2b;
   color: #fff;
   border: none;
-  padding: 15px 35px; /* 12px 28px * 1.25 */
-  font-size: 20px; /* 16px * 1.25 */
-  border-radius: 20px; /* 16px * 1.25 */
+  padding: 15px 35px;
+  font-size: 20px;
+  border-radius: 20px;
   cursor: pointer;
   box-shadow: 0 7.5px 22.5px rgba(0, 0, 0, 0.6);
   transition: all 0.3s ease;
@@ -360,11 +358,11 @@ body.light-mode .sidebar nav a.active {
 body.light-mode main.main-content {
   background: #ffffff;
 }
-body.light-mode main.main-content h1 {
-    color: #1a59e0 !important;
-    text-shadow: none;
-}
 
+body.light-mode main.main-content h1 {
+  color: #1a59e0 !important;
+  text-shadow: none;
+}
 
 body.light-mode .project-card {
   background: #fff;
@@ -441,32 +439,23 @@ body.light-mode #back-btn {
 body.light-mode #submit-btn {
   background-color: #1a59e0;
 }
+
 /* ====== RESPONSIVE: Mobil uchun ====== */
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 225px;
-    height: 100vh;
-    background-color: #1b1b1b;
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
     z-index: 999;
-    padding: 25px 12.5px;
   }
   .sidebar.open {
     transform: translateX(0);
   }
-}
 
-@media (max-width: 768px) {
   .project-grid {
     grid-template-columns: 1fr !important;
     padding: 1rem;
     gap: 1.5rem;
     justify-content: center;
-    justify-items: center;
   }
 
   .project-card {
@@ -477,32 +466,20 @@ body.light-mode #submit-btn {
     margin: 0 auto;
     border-radius: 15px;
     box-shadow: 0 8px 24px rgba(10, 10, 10, 0.5);
-    box-sizing: border-box;
-  }
-}
-
-
-  /* Carddagi sarlavha va matnlarni kichraytirish */
-  .project-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
   }
 
-  .project-card p,
-  .project-card .owner {
-    font-size: 1rem;
-    line-height: 1.3;
-    color: #ccc;
+  /* Mobilda hover effekti yo‘q */
+  .project-card:hover {
+    background: inherit;
+    box-shadow: inherit;
   }
 
-  /* Modal content mobilga moslashuvi */
   .modal-content {
-    max-width: 95%;
+    max-width: 95% !important;
     padding: 1.5rem;
     max-height: 85vh;
   }
 
-  /* Dark toggle va + tugma joylashuvi kichrayishi */
   #dark-toggle,
   #open-add-modal {
     width: 45px;

@@ -14,10 +14,16 @@
   <main class="main-content">
     <h1>Loyihalar</h1>
 
+    <!-- JSON Data -->
+<script id="project-json" type="application/json">
+  {{ projects_json|json_script:"project-json" }}
+</script>
+
+
     <!-- CARDLAR -->
     <div class="project-grid" id="project-container">
       {% for item in projects %}
-      <div class="project-card" onclick="openModal('{{ item.id }}')">
+      <div class="project-card" onclick="openModal('{{ item.id }}', '{{ item.slug }}')">
         {% if item.category %}
         <div class="category-badge">🏷️ {{ item.category.name }}</div>
         {% endif %}
@@ -52,8 +58,7 @@
     <!-- LOAD MORE BUTTON -->
     {% if has_next %}
     <div class="load-more">
-      <button id="load-btn" data-page="2">Ko‘proq
-      </button>
+      <button id="load-btn" data-page="2">Ko‘proq</button>
     </div>
     {% endif %}
 
@@ -101,15 +106,7 @@
   <script src="{% static 'js/toggle.js' %}"></script>
   <script src="{% static 'js/add.js' %}"></script>
   <script src="{% static 'js/load.js' %}"></script>
-
-  <script>
-    function openModal(id) {
-      document.getElementById('modal-' + id).classList.add('show');
-    }
-    function closeModal(id) {
-      document.getElementById('modal-' + id).classList.remove('show');
-    }
-  </script>
+  <script src="{% static 'js/modal.js' %}"></script>
 
 </body>
 </html>

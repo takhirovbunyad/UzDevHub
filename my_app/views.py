@@ -5,7 +5,7 @@ from .models import News, Kurs, Dash , Projects , Category
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import Pro_form
-
+from django.http import HttpResponse, JsonResponse
 def first(request):
     all_dash = Dash.objects.all().order_by('-id')
     paginator = Paginator(all_dash, 6)
@@ -82,13 +82,29 @@ def project_list(request):
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
+    # JSON uchun faqat kerakli maydonlar
+    projects_json = [
+        {
+            'id': p.id,
+            'slug': p.slug,
+            'title': p.title,
+            'description': p.description,
+            'owner_name': p.owner_name,
+            'owner_last_name': p.owner_last_name,
+            'file': p.file.url if p.file else '',
+            'url': p.url,
+        } for p in page_obj.object_list
+    ]
+
+    # context ichida projects_json qo‘shilgan
     context = {
         'projects': page_obj,
         'categories': categories,
-        'has_next': page_obj.has_next()
+        'has_next': page_obj.has_next(),
+        'projects_json': projects_json  # faqat bitta marta qo‘shiladi
     }
+
     return render(request, 'projects.html', context)
-from django.http import HttpResponse
 
 def load_more_projects(request):
     page = request.GET.get('page')

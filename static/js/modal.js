@@ -1,38 +1,31 @@
-// static/js/modal.js
-
-function openModal(projectId) {
-    const data = JSON.parse(document.getElementById('project-json').textContent);
-    const project = data.find(p => p.id === projectId);
-
-    if (!project) return;
-
-    // Modal elementlari
-    document.getElementById('modalTitle').textContent = project.title;
-    document.getElementById('modalDesc').textContent = project.description;
-    document.getElementById('modalOwner').textContent = `${project.owner_name} ${project.owner_last_name}`;
-
-    // Fayl tugmasi
-    const fileBtn = document.getElementById('modalFile');
-    if (project.file) {
-        fileBtn.href = project.file;
-        fileBtn.style.display = 'inline-block';
-    } else {
-        fileBtn.style.display = 'none';
-    }
-
-    // URL tugmasi
-    const urlBtn = document.getElementById('modalUrl');
-    if (project.url) {
-        urlBtn.href = project.url;
-        urlBtn.style.display = 'inline-block';
-    } else {
-        urlBtn.style.display = 'none';
-    }
-
-    // Modalni ko‘rsatish
-    document.getElementById('projectModal').classList.remove('hidden');
+// Slugga asoslangan modalni ochish
+function openModal(id, slug) {
+  history.pushState(null, null, `/projects/${slug}/`);
+  const modal = document.getElementById(`modal-${id}`);
+  if (modal) {
+    modal.classList.add('show');
+  }
 }
 
-function closeModal() {
-    document.getElementById('projectModal').classList.add('hidden');
+// Modalni yopish
+function closeModal(id) {
+  history.pushState(null, null, `/projects/`);
+  const modal = document.getElementById(`modal-${id}`);
+  if (modal) {
+    modal.classList.remove('show');
+  }
 }
+
+// Sahifa yuklanganda URLdagi slug asosida modalni avtomatik ochish
+document.addEventListener('DOMContentLoaded', function () {
+  const projectsData = JSON.parse(document.getElementById('project-json').textContent);
+  const pathParts = window.location.pathname.split('/');
+  const slugFromUrl = pathParts.length >= 3 ? pathParts[2] : null;
+
+  if (slugFromUrl) {
+    const project = projectsData.find(p => p.slug === slugFromUrl);
+    if (project) {
+      openModal(project.id, project.slug);
+    }
+  }
+});
