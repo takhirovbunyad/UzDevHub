@@ -60,22 +60,21 @@ body {
 }
 
 /* ====== MAIN CONTENT ====== */
-main.main-content {
+.main-content {
   flex: 1;
-  padding: 2.5rem;
+  width: 100%;
+  padding: 2rem;
   background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
-  overflow-y: auto;
+  min-height: 100vh;
 }
 
-main.main-content h1 {
-  font-size: 2.25rem;
-  font-weight: bold;
+.main-content h1 {
   color: #82aaff;
-  text-shadow: 0 0 5px rgba(26, 89, 224, 0.3);
-  margin-left: 3rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.25rem;
-  text-align: left;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+  font-size: 1.8rem;
+  font-weight: 700;
+  user-select: none;
 }
 
 /* ====== PROJECT GRID ====== */
