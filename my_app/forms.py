@@ -4,4 +4,14 @@ from .models import Projects
 class Pro_form(forms.ModelForm):
     class Meta:
         model = Projects
-        fields = '__all__'
+        fields = [
+            'owner_name',
+            'owner_last_name',
+            'title',
+            'code',
+            'url',
+            'description',
+            'file',
+            'category',
+            'status',
+        ]

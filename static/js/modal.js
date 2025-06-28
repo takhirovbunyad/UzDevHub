@@ -1,31 +1,64 @@
-// Slugga asoslangan modalni ochish
-function openModal(id, slug) {
-  history.pushState(null, null, `/projects/${slug}/`);
+function openModal(id, slug, publish) {
+  if (!publish) {
+    publish = new Date().toISOString();
+  }
+  const date = new Date(publish);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  // URLni yangilash
+  history.pushState(null, null, `/${year}/${month}/${day}/${slug}/`);
+
   const modal = document.getElementById(`modal-${id}`);
   if (modal) {
     modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
   }
 }
 
-// Modalni yopish
 function closeModal(id) {
   history.pushState(null, null, `/projects/`);
+
   const modal = document.getElementById(`modal-${id}`);
   if (modal) {
     modal.classList.remove('show');
+    document.body.style.overflow = '';
   }
 }
 
-// Sahifa yuklanganda URLdagi slug asosida modalni avtomatik ochish
-document.addEventListener('DOMContentLoaded', function () {
-  const projectsData = JSON.parse(document.getElementById('project-json').textContent);
-  const pathParts = window.location.pathname.split('/');
-  const slugFromUrl = pathParts.length >= 3 ? pathParts[2] : null;
-
-  if (slugFromUrl) {
-    const project = projectsData.find(p => p.slug === slugFromUrl);
-    if (project) {
-      openModal(project.id, project.slug);
-    }
+// Modal tashqarisiga bosilganda yopish
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('modal') && event.target.classList.contains('show')) {
+    const id = event.target.id.split('-')[1];
+    closeModal(id);
   }
 });
+
+function openModal(id, slug, publish) {
+  if (!publish) {
+    publish = new Date().toISOString();
+  }
+  const date = new Date(publish);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  history.pushState(null, null, `/${year}/${month}/${day}/${slug}/`);
+
+  const modal = document.getElementById(`modal-${id}`);
+  if (modal) {
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeModal(id) {
+  history.pushState(null, null, '/projects/');
+
+  const modal = document.getElementById(`modal-${id}`);
+  if (modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}

@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render
+from django.utils.text import slugify
 from django.views.generic import ListView
 from django.db import models
 from django.contrib.auth.models import User
@@ -43,7 +44,7 @@ class Dash(models.Model):
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super(PublishedManager, self).get_queryset().filter(status='published')
+        return super().get_queryset().filter(status='published')
 
 
 class Projects(models.Model):
@@ -51,29 +52,30 @@ class Projects(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published')
     )
+
     owner_name = models.CharField('Ismingiz', max_length=20)
     owner_last_name = models.CharField('Familyangiz', max_length=20)
     title = models.CharField('Sarlavha', max_length=70)
     code = models.TextField('Kodingizni joylashtiring', blank=True, null=True)
-    url = models.URLField('Batafsil', unique=False, blank=True, null=True)
+    url = models.URLField('Batafsil', blank=True, null=True)
     description = models.CharField("Izoh", max_length=200)
     datetime = models.DateTimeField("Qo‘shilgan vaqti", auto_now_add=True)
-    file = models.FileField(upload_to='code_files/')
+    file = models.FileField(upload_to='code_files/', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    slug = models.SlugField(max_length=255, unique_for_date="publish")
+    slug = models.SlugField(max_length=255, unique_for_date="publish", blank=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='draft')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+
+    objects = models.Manager()  # Default manager
+    published = PublishedManager()  # Custom manager
 
     class Meta:
         ordering = ('-publish',)
 
     def __str__(self):
         return self.title
-
-    objects = models.Manager()
-    published = PublishedManager()
 
     def get_absolute_url(self):
         return reverse("projects:project_detail", args=[
@@ -83,5 +85,11 @@ class Projects(models.Model):
             self.slug
         ])
 
-pros = Projects.objects.filter(status='published')
-p_pros = Projects.published.all()
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        if not self.publish:
+            self.publish = timezone.now()
+        if not self.status:
+            self.status = 'draft'
+        super().save(*args, **kwargs)

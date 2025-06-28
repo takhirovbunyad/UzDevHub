@@ -1,0 +1,52 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1100;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  overflow-y: auto;
+  padding: 40px 15px;
+  box-sizing: border-box;
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #2a2a2a;
+  max-width: 600px;
+  padding: 30px 25px;
+  border-radius: 12px;
+  position: relative;
+  color: #eee;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+body.light-mode .modal-content {
+  background: #fff;
+  color: #222;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ccc;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.25s ease;
+}
+
+.close:hover {
+  color: #fff;
+}

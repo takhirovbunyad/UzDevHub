@@ -493,3 +493,49 @@ body.light-mode #submit-btn {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+.step-subtitle {
+  font-size: 1.2rem;
+  color: #82aaff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+<style>
+  body {
+    background-image: url("{% static 'images/nature.jpg' %}");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+</style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* orqadagi qorong‘i fon */
+  display: flex;
+  justify-content: center;  /* gorizontal markaz */
+  align-items: center;      /* vertikal markaz */
+  visibility: hidden;       /* dastlab ko‘rinmasin */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.modal.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  position: relative;
+}

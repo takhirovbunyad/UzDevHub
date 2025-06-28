@@ -1,4 +1,7 @@
+from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.text import slugify
 
+import json
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import News, Kurs, Dash , Projects , Category
@@ -13,6 +16,8 @@ def first(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'dashboard.html', {'page_obj': page_obj})
+
+
 
 def news_view(request):
     yangiliklar = News.objects.all().order_by('-created')
@@ -55,34 +60,25 @@ def add_project(request):
     if request.method == 'POST':
         form = Pro_form(request.POST, request.FILES)
         if form.is_valid():
-            project = form.save()
-            data = {
-                'success': True,
-                'project': {
-                    'id': project.id,
-                    'title': project.title,
-                    'description': project.description,
-                    'ism': project.owner_name,
-                    'familya': project.owner_last_name,
-                    'url': project.url,
-                    'file': project.file.url if project.file else '',
-                    'category': project.category.name if project.category else ''
-                }
-
-            }
-            return JsonResponse(data)
+            project = form.save(commit=False)
+            project.status = 'published'
+            if not project.slug:
+                project.slug = slugify(project.title)
+            if not project.publish:
+                project.publish = timezone.now()
+            project.save()
+            return JsonResponse({'success': True})
         else:
             return JsonResponse({'success': False, 'error': form.errors.as_json()})
     return JsonResponse({'success': False, 'error': 'Noto‘g‘ri metod'})
-def project_list(request):
-    projects = Projects.objects.order_by('-datetime')
-    categories = Category.objects.all()
 
+
+def project_list(request, slug=None):
+    projects = Projects.published.all().order_by('-publish')
     paginator = Paginator(projects, 6)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
-    # JSON uchun faqat kerakli maydonlar
     projects_json = [
         {
             'id': p.id,
@@ -92,23 +88,49 @@ def project_list(request):
             'owner_name': p.owner_name,
             'owner_last_name': p.owner_last_name,
             'file': p.file.url if p.file else '',
-            'url': p.url,
-        } for p in page_obj.object_list
+            'url': p.url if p.url else '',
+            'category': p.category.name if p.category else '',
+            'publish': p.publish.isoformat() if p.publish else ''
+        }
+        for p in page_obj.object_list
     ]
 
-    # context ichida projects_json qo‘shilgan
     context = {
         'projects': page_obj,
-        'categories': categories,
+        'projects_json': json.dumps(projects_json),
+        'categories': Category.objects.all(),
         'has_next': page_obj.has_next(),
-        'projects_json': projects_json  # faqat bitta marta qo‘shiladi
+        'slug': slug  # JS uchun URLdagi slug ni beramiz
     }
 
     return render(request, 'projects.html', context)
 
+
+def project_detail(request, year, month, day, slug):
+    project = get_object_or_404(
+        Projects,
+        slug=slug,
+        status='published',
+        publish__year=year,
+        publish__month=month,
+        publish__day=day
+    )
+    data = {
+        'id': project.id,
+        'title': project.title,
+        'owner_name': project.owner_name,
+        'owner_last_name': project.owner_last_name,
+        'description': project.description,
+        'file_url': project.file.url if project.file else '',
+        'url': project.url if project.url else '',
+        'category': project.category.name if project.category else ''
+    }
+    return JsonResponse(data)
+
+
 def load_more_projects(request):
     page = request.GET.get('page')
-    projects = Projects.objects.order_by('-datetime')
+    projects = Projects.published.all().order_by('-publish')
     paginator = Paginator(projects, 6)
 
     try:
@@ -125,12 +147,12 @@ def load_more_projects(request):
         category_detail = f'<p><strong>Kategoriya:</strong> {item.category.name}</p>' if item.category else ''
 
         html += f"""
-        <div class="project-card" onclick="openModal('{item.id}')">
+        <div class="project-card" onclick="openModal('{item.id}', '{item.slug}', '{item.publish.isoformat()}')">
             {category}
             <h3>{item.title}</h3>
             <p>{description}</p>
             <div class="owner">👤 {item.owner_name} {item.owner_last_name}</div>
-            <div class="owner">📅 {item.datetime.strftime('%d.%m.%Y %H:%M')}</div>
+            <div class="owner">📅 {item.publish.strftime('%d.%m.%Y %H:%M')}</div>
         </div>
 
         <div class="modal" id="modal-{item.id}">
@@ -147,15 +169,35 @@ def load_more_projects(request):
             </div>
         </div>
         """
+
     return HttpResponse(html)
 
-def project_detail(request, year, month, day, slug):
-    project = get_object_or_404(
-        Projects,
-        slug=slug,
-        status='published',
-        publish__year=year,
-        publish__month=month,
-        publish__day=day
-    )
-    return render(request, 'projects/detail.html', {'project': project})
+
+def projects_view_with_modal(request, year, month, day, slug):
+    projects = Projects.published.all().order_by('-publish')
+
+    projects_json = [
+        {
+            'id': p.id,
+            'slug': p.slug,
+            'title': p.title,
+            'description': p.description,
+            'owner_name': p.owner_name,
+            'owner_last_name': p.owner_last_name,
+            'file': p.file.url if p.file else '',
+            'url': p.url if p.url else '',
+            'category': p.category.name if p.category else '',
+            'publish': p.publish.isoformat() if p.publish else ''
+        }
+        for p in projects
+    ]
+
+    context = {
+        'projects': projects,
+        'projects_json': projects_json , # <-- object o‘ramasdan
+
+        'categories': Category.objects.all(),
+        'modal_open_slug': slug,   # shu slug frontendga beriladi
+    }
+
+    return render(request, 'projects.html', context)

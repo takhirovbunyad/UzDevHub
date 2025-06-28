@@ -1,31 +1,52 @@
 from django.contrib import admin
 from .models import News, Kurs, Category, Dash, Projects
 
+
 # Soddalashtirilgan ro‘yxatdan o‘tkazish
 admin.site.register(News)
 admin.site.register(Kurs)
 admin.site.register(Category)
 admin.site.register(Dash)
 
+
 # Loyihalar uchun chiroyli admin ko‘rinishi
 @admin.register(Projects)
 class ProjectsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'owner_name', 'owner_last_name', 'category_display', 'datetime')
-    search_fields = ('title', 'owner_name', 'owner_last_name')
-    list_filter = ('datetime', 'category')
+    list_display = (
+        'title',
+        'owner_name',
+        'owner_last_name',
+        'status',
+        'category_display',
+        'publish',
+        'created'
+    )
+    search_fields = ('title', 'owner_name', 'owner_last_name', 'description')
+    list_filter = ('status', 'category', 'publish', 'created')
     list_per_page = 20
-    ordering = ['-datetime']
-    readonly_fields = ('datetime',)
+    ordering = ['-publish']
+    readonly_fields = ('created', 'updated', 'datetime')
+    list_editable = ('status',)
+    prepopulated_fields = {'slug': ('title',)}
 
     fieldsets = (
         ('📌 Loyiha haqida', {
-            'fields': ('title', 'description', 'url', 'category')
+            'fields': (
+                'title',
+                'slug',
+                'description',
+                'code',
+                'url',
+                'file',
+                'category',
+                'status'
+            )
         }),
         ('👤 Muallif ma’lumotlari', {
             'fields': ('owner_name', 'owner_last_name')
         }),
         ('⏱ Sana va vaqt', {
-            'fields': ('datetime',),
+            'fields': ('publish', 'created', 'updated', 'datetime'),
             'classes': ('collapse',)
         }),
     )
