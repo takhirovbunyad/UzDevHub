@@ -486,22 +486,7 @@ body.light-mode #submit-btn {
     font-size: 22px;
   }
 }
-.main-content {
-  flex: 1;
-  width: 100%;
-  padding: 2rem;
-  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
-  min-height: 100vh;
-}
 
-.main-content h1 {
-  color: #82aaff;
-  margin-bottom: 2rem;
-  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
-  font-size: 1.8rem;
-  font-weight: 700;
-  user-select: none;
-}
 /* ====== Planshet uchun ikki ustun ====== */
 @media (min-width: 769px) and (max-width: 1024px) {
   .project-grid {

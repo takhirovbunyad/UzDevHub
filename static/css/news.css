@@ -60,23 +60,22 @@ body {
 }
 
 /* Main content */
-main.main-content {
-    flex: 1;
-    padding: 2.5rem 3.75rem;
-    background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
-    overflow-y: auto;
-    font-size: 0.8rem; /* text kichraytirildi */
+.main-content {
+  flex: 1;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+  min-height: 100vh;
 }
 
-main.main-content h1 {
-    color: #82aaff;
-    margin-bottom: 2.5rem;
-    user-select: none;
-    text-shadow: 0 0 10px rgba(130,170,255,0.7);
-    font-size: 2rem; /* 0.8x kamaytirilgan */
-    margin-left: 3rem;
+.main-content h1 {
+  color: #82aaff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+  font-size: 1.8rem;
+  font-weight: 700;
+  user-select: none;
 }
-
 /* Cards container */
 .cards-container {
     display: flex;
