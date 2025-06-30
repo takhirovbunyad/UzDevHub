@@ -27,3 +27,49 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn("❗ Modal ochilmadi, slug topilmadi:", slug);
   }
 });
+const copyBtn = document.getElementById('copy-link-btn');
+
+function openModal(id, slug, publish) {
+  if (!publish) publish = new Date().toISOString();
+  const date = new Date(publish);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  const url = `${window.location.origin}/${year}/${month}/${day}/${slug}/`;
+  history.pushState(null, null, url);
+
+  const modal = document.getElementById(`modal-${id}`);
+  if (modal) {
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+
+    // Nusxalash tugmasini ko‘rsatish va URL saqlash
+    copyBtn.style.display = 'inline-block';
+    copyBtn.setAttribute('data-url', url);
+  }
+}
+
+function closeModal(id) {
+  history.pushState(null, null, '/projects/');
+
+  const modal = document.getElementById(`modal-${id}`);
+  if (modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  // Nusxalash tugmasini yashirish
+  copyBtn.style.display = 'none';
+}
+
+// Tugma bosilganda URL ni nusxalash
+copyBtn.addEventListener('click', () => {
+  const url = copyBtn.getAttribute('data-url');
+  navigator.clipboard.writeText(url).then(() => {
+    copyBtn.textContent = '✅';
+    setTimeout(() => {
+      copyBtn.textContent = '🚀';
+    }, 500);
+  });
+});

@@ -194,10 +194,10 @@ def projects_view_with_modal(request, year, month, day, slug):
 
     context = {
         'projects': projects,
-        'projects_json': projects_json , # <-- object o‘ramasdan
+        'projects_json': projects_json ,
 
         'categories': Category.objects.all(),
-        'modal_open_slug': slug,   # shu slug frontendga beriladi
+        'modal_open_slug': slug,
     }
 
     return render(request, 'projects.html', context)
