@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import News, Kurs, Category, Dash, Projects
+from django.contrib.auth.admin import UserAdmin
 
+from .forms import CustomUserCreationForm
+from .models import News, Kurs, Category, Dash, Projects, CustomUser
 
 # Soddalashtirilgan ro‘yxatdan o‘tkazish
 admin.site.register(News)
@@ -65,3 +67,22 @@ class ProjectsAdmin(admin.ModelAdmin):
 admin.site.site_header = "UzDevHub Admin Paneli"
 admin.site.site_title = "UzDevHub Boshqaruvi"
 admin.site.index_title = "Boshqaruv Paneliga Xush Kelibsiz"
+@admin.register(CustomUser)
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    model = CustomUser
+    list_display = ('username', 'email', 'is_active', 'is_staff')
+    list_filter = ('is_active', 'is_staff')
+    fieldsets = (
+        (None, {'fields': ('username', 'email', 'password')}),
+        ('Ruxsatlar', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Muvofiqlik', {'fields': ('last_login', 'date_joined')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'email', 'password1', 'password2', 'is_active', 'is_staff')}
+        ),
+    )
+    search_fields = ('username', 'email')
+    ordering = ('-date_joined',)

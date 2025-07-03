@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 import random
 import string
 
+from django.core.validators import MinLengthValidator
 from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
 from django.views.generic import ListView
@@ -103,6 +104,16 @@ def generate_verification_code():
     return ''.join(random.choices(string.digits, k=6))
 
 class CustomUser(AbstractUser):
+    username = models.CharField(
+        max_length=150,
+        unique=True,
+        validators=[
+            MinLengthValidator(5, message="Username kamida 5 ta belgidan iborat bo‘lishi kerak.")
+        ],
+        error_messages={
+            'unique': "Bu username allaqachon ishlatilgan.",
+        }
+    )
     email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=False)
     verification_code = models.CharField(max_length=6, blank=True, null=True)

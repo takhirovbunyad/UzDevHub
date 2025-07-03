@@ -1,62 +1,64 @@
-/* ====== GLOBAL ====== */
+/* Global reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  font-size: 125%;
-}
-
+/* Body uchun */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #121212;
   color: #c0c0c0;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  overflow: hidden; /* Scroll bo‘lmasligi uchun */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ====== CONTAINER ====== */
+/* Modal card */
 .auth-container {
   background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
-  padding: 2.5rem 3rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
-  width: 100%;
-  max-width: 420px;
+  width: 90%;
+  max-width: 500px;  /* Kattaroq kenglik */
+  max-height: 90vh;  /* Ekran balandligidan oshmasligi uchun */
+  padding: 3rem 3.5rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+  overflow-y: auto;  /* Agar form uzoq bo‘lsa scroll paydo bo‘lsin */
   text-align: center;
+  user-select: none;
 }
 
-/* ====== HEADER ====== */
+/* Sarlavha */
 .auth-container h2 {
   color: #82aaff;
-  margin-bottom: 1.8rem;
-  font-size: 1.8rem;
-  user-select: none;
-  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(130, 170, 255, 0.9);
 }
 
-/* ====== FORM ELEMENTS ====== */
+/* Form elementi */
 .auth-container form {
   display: flex;
   flex-direction: column;
-  gap: 1.3rem;
+  gap: 1.5rem;
 }
 
+/* Inputlar */
 .auth-container input[type="text"],
 .auth-container input[type="password"],
 .auth-container input[type="email"] {
   background-color: #222222;
   border: none;
-  border-radius: 10px;
-  padding: 14px 18px;
-  font-size: 1rem;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 1.1rem;
   color: #eee;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .auth-container input[type="text"]:focus,
@@ -65,21 +67,31 @@ body {
   outline: none;
   background-color: #2a52d8;
   color: white;
-  box-shadow: 0 0 10px #2a52d8;
+  box-shadow: 0 0 15px #2a52d8;
 }
 
-/* ====== BUTTON ====== */
+/* Required text kichikroq */
+.auth-container .required {
+  color: #999;
+  font-size: 0.8rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-style: italic;
+  text-align: left;
+}
+
+/* Submit button */
 .auth-container button {
   background-color: #2a52d8;
   border: none;
-  border-radius: 10px;
-  padding: 14px;
+  border-radius: 14px;
+  padding: 16px 0;
   color: white;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
   user-select: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .auth-container button:hover {
@@ -87,17 +99,22 @@ body {
   transform: scale(1.05);
 }
 
-/* ====== ERROR MESSAGE ====== */
-.auth-container .error-message {
-  color: #f44336;
-  font-weight: 600;
-  margin-top: -8px;
-  margin-bottom: 10px;
-  text-align: left;
-  font-size: 0.9rem;
+/* Scrollbar uchun Windows 11 silliqligi */
+.auth-container::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* ====== DARK MODE TOGGLE BUTTON ====== */
+.auth-container::-webkit-scrollbar-track {
+  background: #1b1b1b;
+  border-radius: 10px;
+}
+
+.auth-container::-webkit-scrollbar-thumb {
+  background: #2a52d8;
+  border-radius: 10px;
+}
+
+/* Toggle button joylashuvi */
 #dark-toggle {
   position: fixed;
   top: 20px;
@@ -123,7 +140,7 @@ body {
   color: white;
 }
 
-/* ====== LIGHT MODE ====== */
+/* Light mode */
 body.light-mode {
   background-color: #f4f4f6;
   color: #444444;
@@ -163,10 +180,42 @@ body.light-mode button:hover {
   background-color: #133ea1;
 }
 
-/* ====== RESPONSIVE ====== */
-@media (max-width: 480px) {
+/* Responsive */
+@media (max-width: 600px) {
   .auth-container {
-    padding: 1.5rem 2rem;
-    width: 90%;
+    padding: 2rem;
+    max-width: 95%;
+    max-height: 95vh;
+    border-radius: 14px;
   }
+
+  .auth-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .auth-container input[type="text"],
+  .auth-container input[type="password"],
+  .auth-container input[type="email"] {
+    padding: 14px 18px;
+    font-size: 1rem;
+  }
+
+  .auth-container button {
+    padding: 14px 0;
+    font-size: 1.1rem;
+  }
+}
+.message-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.message.success {
+  background-color: #1a59e0;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(26, 89, 224, 0.3);
+  font-weight: 600;
 }

@@ -10,15 +10,36 @@
 <body>
   <div class="auth-container">
     <h2>Ro'yxatdan o'tish</h2>
+
+    <!-- Xabarlar (email yuborilgan va boshqalar) -->
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
     <form method="post" novalidate>
       {% csrf_token %}
-      {{ form.as_p }}
+      {% for field in form %}
+        <div class="form-group {% if field.field.required %}required{% endif %}">
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.help_text %}
+            <small class="help-text">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <p class="error-message">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
       <button type="submit">Ro‘yxatdan o‘tish</button>
     </form>
   </div>
 
   <!-- Dark/Light toggle tugmasi -->
-  <button id="dark-toggle"></button>
+  <button id="dark-toggle" title="Dark/Light">🌓</button>
 
   <script src="{% static 'js/toggle.js' %}"></script>
 </body>

@@ -21,30 +21,40 @@ def signup_view(request):
             user.is_active = False
             user.save()
 
-            # Faollashtirish linkini yaratish
+            # Faollashtirish tokeni va link
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             activation_link = request.build_absolute_uri(f'/activate/{uid}/{token}/')
 
-            message = render_to_string('accounts/activation_email.html', {
+            # Email HTML va matnli versiyasini tayyorlash
+            subject = 'Hisobingizni faollashtiring'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to = [user.email]
+            text_content = 'Hisobingizni faollashtirish uchun havolani bosing.'
+            html_content = render_to_string('accounts/activation_email.html', {
                 'user': user,
                 'activation_link': activation_link
             })
 
-            send_mail(
-                subject='Hisobingizni faollashtiring',
-                message=message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email],
+            # HTML email yuborish
+            email = EmailMultiAlternatives(subject, text_content, from_email, to)
+            email.attach_alternative(html_content, "text/html")
+            email.send()
+
+            # Foydalanuvchiga xabar
+            messages.success(
+                request,
+                "Ro‘yxatdan o‘tdingiz! Emailingizga yuborilgan havola orqali hisobingizni faollashtiring."
             )
 
-            messages.success(request, 'Ro‘yxatdan o‘tdingiz! Emailingizga yuborilgan havola orqali hisobingizni faollashtiring.')
-            return redirect('login')
+            # Forma tozalanadi
+            return render(request, 'accounts/signup.html', {'form': CustomUserCreationForm()})
+        else:
+            messages.error(request, "Iltimos, to‘g‘ri ma’lumot kiriting.")
     else:
         form = CustomUserCreationForm()
 
     return render(request, 'accounts/signup.html', {'form': form})
-
 
 def activate_account(request, uidb64, token):
     try:
