@@ -201,3 +201,4 @@ def projects_view_with_modal(request, year, month, day, slug):
     }
 
     return render(request, 'projects.html', context)
+

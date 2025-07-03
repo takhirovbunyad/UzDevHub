@@ -1,0 +1,172 @@
+/* ====== GLOBAL ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 125%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #c0c0c0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ====== CONTAINER ====== */
+.auth-container {
+  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+  padding: 2.5rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+/* ====== HEADER ====== */
+.auth-container h2 {
+  color: #82aaff;
+  margin-bottom: 1.8rem;
+  font-size: 1.8rem;
+  user-select: none;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+}
+
+/* ====== FORM ELEMENTS ====== */
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="password"],
+.auth-container input[type="email"] {
+  background-color: #222222;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  color: #eee;
+  transition: background-color 0.3s ease;
+}
+
+.auth-container input[type="text"]:focus,
+.auth-container input[type="password"]:focus,
+.auth-container input[type="email"]:focus {
+  outline: none;
+  background-color: #2a52d8;
+  color: white;
+  box-shadow: 0 0 10px #2a52d8;
+}
+
+/* ====== BUTTON ====== */
+.auth-container button {
+  background-color: #2a52d8;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.auth-container button:hover {
+  background-color: #133ea1;
+  transform: scale(1.05);
+}
+
+/* ====== ERROR MESSAGE ====== */
+.auth-container .error-message {
+  color: #f44336;
+  font-weight: 600;
+  margin-top: -8px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+/* ====== DARK MODE TOGGLE BUTTON ====== */
+#dark-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(40, 40, 40, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  color: #82aaff;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(130, 170, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  transition: background 0.3s ease;
+}
+
+#dark-toggle:hover {
+  background: rgba(26, 115, 232, 0.8);
+  color: white;
+}
+
+/* ====== LIGHT MODE ====== */
+body.light-mode {
+  background-color: #f4f4f6;
+  color: #444444;
+}
+
+body.light-mode .auth-container {
+  background: #fdfdff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+body.light-mode .auth-container h2 {
+  color: #1a59e0;
+  text-shadow: none;
+}
+
+body.light-mode input[type="text"],
+body.light-mode input[type="password"],
+body.light-mode input[type="email"] {
+  background-color: #e9e9ee;
+  color: #222222;
+}
+
+body.light-mode input[type="text"]:focus,
+body.light-mode input[type="password"]:focus,
+body.light-mode input[type="email"]:focus {
+  background-color: #1a59e0;
+  color: white;
+  box-shadow: 0 0 10px #1a59e0;
+}
+
+body.light-mode button {
+  background-color: #1a59e0;
+  color: white;
+}
+
+body.light-mode button:hover {
+  background-color: #133ea1;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 1.5rem 2rem;
+    width: 90%;
+  }
+}

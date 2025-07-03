@@ -1,5 +1,7 @@
 from django import forms
-from .models import Projects
+from django.contrib.auth.forms import UserCreationForm
+from .models import Projects, CustomUser
+
 
 class Pro_form(forms.ModelForm):
     class Meta:
@@ -15,3 +17,16 @@ class Pro_form(forms.ModelForm):
             'category',
             'status',
         ]
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True, label='Email')
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError("Bu email manzil oldin ro'yxatdan o'tgan.")
+        return email

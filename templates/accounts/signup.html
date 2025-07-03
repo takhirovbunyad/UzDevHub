@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ro'yxatdan o'tish</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Ro'yxatdan o'tish</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Ro‘yxatdan o‘tish</button>
+    </form>
+  </div>
+
+  <!-- Dark/Light toggle tugmasi -->
+  <button id="dark-toggle"></button>
+
+  <script src="{% static 'js/toggle.js' %}"></script>
+</body>
+</html>

@@ -1,3 +1,8 @@
+from random import random
+from django.contrib.auth.models import AbstractUser
+import random
+import string
+
 from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
 from django.views.generic import ListView
@@ -92,4 +97,17 @@ class Projects(models.Model):
             self.publish = timezone.now()
         if not self.status:
             self.status = 'draft'
+        super().save(*args, **kwargs)
+
+def generate_verification_code():
+    return ''.join(random.choices(string.digits, k=6))
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    is_verified = models.BooleanField(default=False)
+    verification_code = models.CharField(max_length=6, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.verification_code:
+            self.verification_code = generate_verification_code()
         super().save(*args, **kwargs)
