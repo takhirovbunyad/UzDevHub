@@ -1,6 +1,7 @@
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils import timezone
 from django.utils.text import slugify
-
+from accounts import views
 import json
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
@@ -9,6 +10,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import Pro_form
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def first(request):
     all_dash = Dash.objects.all().order_by('-id')
     paginator = Paginator(all_dash, 6)
@@ -18,11 +22,12 @@ def first(request):
     return render(request, 'dashboard.html', {'page_obj': page_obj})
 
 
-
+@login_required
 def news_view(request):
     yangiliklar = News.objects.all().order_by('-created')
     return render(request, 'news.html', {'yangiliklar': yangiliklar})
 
+@login_required
 def learn_view(request):
     kurslar = Kurs.objects.all()
     return render(request, 'learn.html', {'kurslar': kurslar})
@@ -50,11 +55,12 @@ def load_more_cards(request):
 
     return JsonResponse(data)
 
+@login_required
 def dash_view(request):
     initial_cards = Dash.objects.all().order_by('-id')[:6]
     return render(request, 'dash.html', {'initial_cards': initial_cards})
 
-
+@login_required
 @csrf_exempt
 def add_project(request):
     if request.method == 'POST':
@@ -72,7 +78,7 @@ def add_project(request):
             return JsonResponse({'success': False, 'error': form.errors.as_json()})
     return JsonResponse({'success': False, 'error': 'Noto‘g‘ri metod'})
 
-
+@login_required
 def project_list(request, slug=None):
     projects = Projects.published.all().order_by('-publish')
     paginator = Paginator(projects, 6)
@@ -105,7 +111,7 @@ def project_list(request, slug=None):
 
     return render(request, 'projects.html', context)
 
-
+@login_required
 def project_detail(request, year, month, day, slug):
     project = get_object_or_404(
         Projects,
@@ -127,7 +133,7 @@ def project_detail(request, year, month, day, slug):
     }
     return JsonResponse(data)
 
-
+@login_required
 def load_more_projects(request):
     page = request.GET.get('page')
     projects = Projects.published.all().order_by('-publish')
@@ -172,7 +178,7 @@ def load_more_projects(request):
 
     return HttpResponse(html)
 
-
+@login_required
 def projects_view_with_modal(request, year, month, day, slug):
     projects = Projects.published.all().order_by('-publish')
 

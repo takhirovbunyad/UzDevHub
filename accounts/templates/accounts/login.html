@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kirish</title>
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Tizimga kirish</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if messages %}
+        {% for message in messages %}
+          <p class="error-message">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required>
+
+      <label for="password">Parol</label>
+      <input type="password" name="password" id="password" required>
+
+      <button type="submit">Kirish</button>
+    </form>
+
+    <!-- Pastda: Akkaunt yo‘q bo‘lsa -->
+    <p class="required">Akkauntingiz yo‘qmi?
+      <a href="{% url 'accounts:signup' %}" style="color: #2a52d8; font-weight: bold;">Ro‘yxatdan o‘ting</a>
+    </p>
+  </div>
+
+  <!-- Toggle dark/light -->
+  <button id="dark-toggle">🌓</button>
+  <script src="{% static 'my_app/js/toggle.js' %}"></script>
+</body>
+</html>

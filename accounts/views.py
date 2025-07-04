@@ -5,12 +5,12 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.contrib import messages
 
-from .forms import CustomUserCreationForm
-from .models import CustomUser
+from my_app.forms import CustomUserCreationForm
+from my_app.models import CustomUser
 
 
 def signup_view(request):
@@ -63,15 +63,17 @@ def activate_account(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
         user = None
 
-    if user is not None and default_token_generator.check_token(user, token):
-        user.is_active = True
-        user.save()
-        messages.success(request, 'Hisobingiz faollashtirildi! Endi tizimga kiring.')
-        return redirect('login')
+    if user and default_token_generator.check_token(user, token):
+        if not user.is_active:
+            user.is_active = True
+            user.save()
+            messages.success(request, "Hisobingiz faollashtirildi! Endi tizimga kiring.")
+        else:
+            messages.info(request, "Hisobingiz allaqachon faollashtirilgan.")
+        return redirect('accounts:login')
     else:
-        messages.error(request, 'Faollashtirish havolasi noto‘g‘ri yoki muddati o‘tgan.')
-        return redirect('signup')
-
+        messages.error(request, "Faollashtirish havolasi noto‘g‘ri yoki muddati o‘tgan.")
+        return redirect('accounts:signup')
 
 def login_view(request):
     if request.method == 'POST':
@@ -80,7 +82,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None and user.is_active:
             login(request, user)
-            return redirect('home')
+            return redirect('/')
         else:
             messages.error(request, 'Username yoki parol noto‘g‘ri yoki hisob faollashtirilmagan.')
     return render(request, 'accounts/login.html')
@@ -89,7 +91,7 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('accounts:login')
 
 
 @login_required
