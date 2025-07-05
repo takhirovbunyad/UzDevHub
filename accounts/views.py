@@ -12,6 +12,19 @@ from django.contrib import messages
 from my_app.forms import CustomUserCreationForm
 from my_app.models import CustomUser
 
+from django.shortcuts import render, redirect
+from django.urls import reverse  # 🆕 kerak bo‘ladi
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib import messages
+from django.conf import settings
+
+from my_app.forms import CustomUserCreationForm
+from my_app.models import CustomUser
+
 
 def signup_view(request):
     if request.method == "POST":
@@ -21,12 +34,16 @@ def signup_view(request):
             user.is_active = False
             user.save()
 
-            # Faollashtirish tokeni va link
+
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            activation_link = request.build_absolute_uri(f'/activate/{uid}/{token}/')
 
-            # Email HTML va matnli versiyasini tayyorlash
+
+            activation_link = request.build_absolute_uri(
+                reverse('accounts:activate', args=[uid, token])
+            )
+
+
             subject = 'Hisobingizni faollashtiring'
             from_email = settings.DEFAULT_FROM_EMAIL
             to = [user.email]
@@ -36,18 +53,18 @@ def signup_view(request):
                 'activation_link': activation_link
             })
 
-            # HTML email yuborish
+
             email = EmailMultiAlternatives(subject, text_content, from_email, to)
             email.attach_alternative(html_content, "text/html")
             email.send()
 
-            # Foydalanuvchiga xabar
+
             messages.success(
                 request,
                 "Ro‘yxatdan o‘tdingiz! Emailingizga yuborilgan havola orqali hisobingizni faollashtiring."
             )
 
-            # Forma tozalanadi
+
             return render(request, 'accounts/signup.html', {'form': CustomUserCreationForm()})
         else:
             messages.error(request, "Iltimos, to‘g‘ri ma’lumot kiriting.")
@@ -55,6 +72,7 @@ def signup_view(request):
         form = CustomUserCreationForm()
 
     return render(request, 'accounts/signup.html', {'form': form})
+
 
 def activate_account(request, uidb64, token):
     try:
