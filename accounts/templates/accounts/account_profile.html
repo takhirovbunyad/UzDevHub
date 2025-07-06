@@ -1,0 +1,135 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Hisobim</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+
+    {% include 'sidebar.html' %}
+
+    <main class="main-content">
+        <div class="profile-container">
+            <div class="profile-header">
+                <h2>Hisobim</h2>
+                <a href="{% url 'accounts:logout' %}" class="logout-button">Chiqish</a>
+                <div class="profile-picture">
+                    {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" alt="Profil rasmi">
+                    {% else %}
+                        <img src="{% static 'images/pic.png' %}" alt="Default profil rasmi">
+                    {% endif %}
+                </div>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="profile-form">
+                {% csrf_token %}
+
+                <!-- Ism -->
+                <div>
+                    <label for="id_first_name">Ism:</label>
+                    <input type="text" name="first_name" id="id_first_name" value="{{ user.first_name|default_if_none:'' }}" placeholder="Ismingizni kiriting">
+                </div>
+
+                <!-- Familiya -->
+                <div>
+                    <label for="id_last_name">Familiya:</label>
+                    <input type="text" name="last_name" id="id_last_name" value="{{ user.last_name|default_if_none:'' }}" placeholder="Familiyangizni kiriting">
+                </div>
+
+                <!-- Kasb -->
+                <div>
+                    <label for="id_profession">Kasb:</label>
+                    <input type="text" name="profession" id="id_profession" value="{{ user.profession|default_if_none:'' }}" placeholder="Kasbingizni yozing">
+                </div>
+
+                <!-- Manzil -->
+                <div>
+                    <label for="id_address">Manzil:</label>
+                    <input type="text" name="address" id="id_address" value="{{ user.address|default_if_none:'' }}" placeholder="Manzilingizni yozing">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="id_email">Email:</label>
+                    <input type="email" name="email" id="id_email" value="{{ user.email|default_if_none:'' }}" readonly>
+                </div>
+
+                <!-- Telegram -->
+                <div>
+                    <label for="id_telegram">Telegram:</label>
+                    <input type="url" name="telegram" id="id_telegram" value="{{ user.telegram|default_if_none:'' }}" placeholder="Telegram URL">
+                </div>
+
+                <!-- LinkedIn -->
+                <div>
+                    <label for="id_linkedin">LinkedIn:</label>
+                    <input type="url" name="linkedin" id="id_linkedin" value="{{ user.linkedin|default_if_none:'' }}" placeholder="LinkedIn URL">
+                </div>
+
+                <!-- GitHub -->
+                <div>
+                    <label for="id_github">GitHub:</label>
+                    <input type="url" name="github" id="id_github" value="{{ user.github|default_if_none:'' }}" placeholder="GitHub URL">
+                </div>
+
+                <!-- Website -->
+                <div>
+                    <label for="id_website">Website:</label>
+                    <input type="url" name="website" id="id_website" value="{{ user.website|default_if_none:'' }}" placeholder="Veb-saytingiz manzili">
+                </div>
+
+                <!-- Bio -->
+                <div style="grid-column: span 2;">
+                    <label for="id_bio">O‘zingiz haqingizda:</label>
+                    <textarea name="bio" id="id_bio" rows="4" placeholder="Biografiyangizni yozing...">{{ user.bio|default_if_none:'' }}</textarea>
+                </div>
+
+                <!-- Ish joyi -->
+                <div>
+                    <label for="id_workplace">Ish joyingiz:</label>
+                    <input type="text" name="workplace" id="id_workplace" value="{{ user.workplace|default_if_none:'' }}" placeholder="Ish joyingiz">
+                </div>
+
+                <!-- Telefon -->
+                <div>
+                    <label for="id_phone_number">Telefon raqam:</label>
+                    <input type="text" name="phone_number" id="id_phone_number" value="{{ user.phone_number|default_if_none:'' }}" placeholder="+998 90 123 45 67">
+                </div>
+
+                <!-- Jinsi -->
+                <div>
+                    <label for="id_gender">Jinsi:</label>
+                    <select name="gender" id="id_gender" required>
+                        <option value="" disabled {% if not user.gender %}selected{% endif %}>Tanlang</option>
+                        <option value="male" {% if user.gender == "male" %}selected{% endif %}>Erkak</option>
+                        <option value="female" {% if user.gender == "female" %}selected{% endif %}>Ayol</option>
+                        <option value="other" {% if user.gender == "other" %}selected{% endif %}>Boshqa</option>
+                    </select>
+                </div>
+
+                <!-- Rasm yangilash -->
+                <div style="grid-column: span 2;">
+                    <label for="id_profile_image">Profil rasmini yangilash:</label>
+                    <input type="file" name="profile_image" id="id_profile_image" accept="image/*">
+                </div>
+
+                <!-- Submit -->
+                <div class="profile-submit">
+                    <button type="submit">Saqlash</button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Toggle tugmasi -->
+    <button id="dark-toggle" title="Rejimni almashtirish">☀️</button>
+    <script src="{% static 'js/toggle.js' %}"></script>
+
+</body>
+</html>

@@ -100,6 +100,14 @@ class Projects(models.Model):
             self.status = 'draft'
         super().save(*args, **kwargs)
 
+
+
+GENDER_CHOICES = [
+    ('male', 'Erkak'),
+    ('female', 'Ayol'),
+    ('other', 'Boshqa'),
+]
+
 def generate_verification_code():
     return ''.join(random.choices(string.digits, k=6))
 
@@ -118,7 +126,27 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField(default=False)
     verification_code = models.CharField(max_length=6, blank=True, null=True)
 
+
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    profession = models.CharField(max_length=100, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    workplace = models.CharField(max_length=255, blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    last_activity = models.DateTimeField(auto_now=True)
+
+    telegram = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
+
     def save(self, *args, **kwargs):
         if not self.verification_code:
             self.verification_code = generate_verification_code()
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.username
+

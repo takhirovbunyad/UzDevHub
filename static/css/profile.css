@@ -1,0 +1,366 @@
+/* ====== RESET ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 125%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: 225px;
+    min-width: 225px;
+    max-width: 225px;
+    background-color: #1b1b1b;
+    padding: 25px 12.5px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+    user-select: none;
+    flex-shrink: 0;
+    font-size: 1rem;
+}
+
+.sidebar h2 {
+    color: #82aaff;
+    margin-bottom: 1.875rem;
+    font-size: 1.5rem;
+    user-select: none;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #a8b0d0;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 0;
+    border-radius: 6.25px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background 0.3s ease;
+}
+
+.sidebar nav a:hover {
+    background-color: #2a52d8;
+    color: #e6e6e6;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+  min-height: 100vh;
+}
+
+.main-content h1 {
+  color: #82aaff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+  font-size: 1.8rem;
+  font-weight: 700;
+  user-select: none;
+}
+
+/* === PROFILE CONTAINER === */
+.profile-container {
+  background-color: rgba(27, 27, 27, 0.95);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(26, 115, 232, 0.6);
+  max-width: 1000px;
+  padding: 40px 50px;
+  margin: 0 auto;
+  color: #e0e0e0;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+/* === PROFILE HEADER === */
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.profile-header h2 {
+  font-size: 2rem;
+  color: #82aaff;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+  margin-right: auto;
+}
+
+.logout-button {
+  background: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.logout-button:hover {
+  background: #c9303a;
+  transform: scale(1.05);
+}
+
+/* Profile picture */
+.profile-picture {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.8);
+  flex-shrink: 0;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === PROFILE FORM === */
+.profile-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px 40px;
+}
+
+.profile-form label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #aab8ff;
+  display: block;
+}
+
+.profile-form input,
+.profile-form textarea,
+.profile-form select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1.5px solid #444c66;
+  background-color: #1e1e2e;
+  color: white;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.profile-form input:focus,
+.profile-form textarea:focus,
+.profile-form select:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 8px rgba(26, 115, 232, 0.6);
+}
+
+/* Bio textarea */
+.profile-form textarea {
+  resize: vertical;
+  font-family: inherit;
+  min-height: 90px;
+}
+
+/* Submit button container */
+.profile-submit {
+  grid-column: span 2;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-submit button {
+  background-color: #1a73e8;
+  color: white;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.5);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.profile-submit button:hover {
+  background-color: #155ab6;
+}
+
+/* === DARK/LIGHT TOGGLE === */
+#dark-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(40,40,40,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: #82aaff;
+    font-size: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(130,170,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    user-select: none;
+    z-index: 9999;
+}
+
+#dark-toggle:hover {
+    background: rgba(26,115,232,0.8);
+    color: white;
+}
+
+/* === LIGHT MODE STYLES === */
+body.light-mode {
+    background-color: #f4f4f6;
+    color: #222;
+}
+
+body.light-mode .sidebar {
+  background-color: #e9e9ee;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .sidebar h2 {
+  color: #1a59e0;
+}
+
+body.light-mode .sidebar nav a {
+  color: #333;
+}
+
+body.light-mode .sidebar nav a:hover,
+body.light-mode .sidebar nav a.active {
+  background-color: #d0d8f3;
+  color: #000;
+}
+
+body.light-mode main.main-content {
+    background: #fdfdff !important;
+    color: #222;
+}
+
+body.light-mode main.main-content h1 {
+    color: #1a59e0;
+    text-shadow: none;
+}
+
+/* Light mode uchun profile container va forma */
+body.light-mode .profile-container {
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(26, 115, 232, 0.2);
+    color: #222;
+}
+
+body.light-mode .profile-form label {
+    color: #1a59e0;
+}
+
+body.light-mode .profile-header h2 {
+    color: #2a52d8;
+    font-weight: 700;
+    font-size: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 136, 204, 0.3);
+    letter-spacing: 0.03em;
+    user-select: none;
+}
+
+
+body.light-mode .profile-form input,
+body.light-mode .profile-form textarea,
+body.light-mode .profile-form select {
+    background-color: #f8f8f8;
+    color: #222;
+    border: 1.5px solid #ccc;
+}
+
+body.light-mode .profile-form input::placeholder,
+body.light-mode .profile-form textarea::placeholder {
+    color: #777;
+}
+
+body.light-mode .profile-form input:hover,
+body.light-mode .profile-form textarea:hover,
+body.light-mode .profile-form select:hover,
+body.light-mode .profile-form input:focus,
+body.light-mode .profile-form textarea:focus,
+body.light-mode .profile-form select:focus {
+    background-color: #fff;
+    border-color: #1a59e0;
+    box-shadow: 0 0 8px rgba(26, 115, 232, 0.4);
+    outline: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+  }
+
+  .profile-form {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .profile-header {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-header h2 {
+    font-size: 1.6rem;
+    margin: 0;
+  }
+
+  .logout-button {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .profile-picture {
+    width: 120px;
+    height: 120px;
+  }
+
+  .profile-form input,
+  .profile-form textarea,
+  .profile-form select {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .profile-submit button {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
