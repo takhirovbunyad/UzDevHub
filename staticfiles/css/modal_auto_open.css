@@ -1,0 +1,94 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1100;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  overflow-y: auto;
+  padding: 40px 15px;
+  box-sizing: border-box;
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #2a2a2a;
+  max-width: 600px;
+  padding: 30px 25px;
+  border-radius: 12px;
+  position: relative;
+  color: #eee;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+body.light-mode .modal-content {
+  background: #fff;
+  color: #222;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ccc;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.25s ease;
+}
+
+.close:hover {
+  color: #fff;
+}
+#copy-link-btn {
+  position: fixed;
+  top: 1.25rem;
+  right: 100px;
+  background: rgba(40, 40, 40, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: #82aaff;
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(130, 170, 255, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: background 1s ease, transform 1s ease;
+}
+
+#copy-link-btn:hover {
+  background: rgba(60, 60, 60, 0.95);
+  transform: scale(1.1);
+}
+
+body.light-mode #copy-link-btn {
+  background: rgba(200, 200, 200, 0.9);
+  color: #1a59e0;
+}
+
+body.light-mode #copy-link-btn:hover {
+  background: rgba(26, 115, 232, 0.8);
+  color: white;
+}
+@media (max-width: 768px) {
+  #copy-link-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+    right: 80px;
+  }
+}

@@ -1,0 +1,377 @@
+/* ====== RESET ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 125%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: 225px;
+    min-width: 225px;
+    max-width: 225px;
+    background-color: #1b1b1b;
+    padding: 25px 12.5px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+    user-select: none;
+    flex-shrink: 0;
+    font-size: 1rem;
+}
+
+.sidebar h2 {
+    color: #82aaff;
+    margin-bottom: 1.875rem;
+    font-size: 1.5rem;
+    user-select: none;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #cfd8fc;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 0;
+    border-radius: 6.25px;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.sidebar nav a:hover {
+    background-color: #2a52d8;
+    color: white;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+  min-height: 100vh;
+}
+
+.main-content h1 {
+  color: #82aaff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+  font-size: 1.8rem;
+  font-weight: 700;
+  user-select: none;
+}
+
+/* Learn grid va card */
+.learn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.learn-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 18.75px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(10,10,10,0.7);
+    color: #cfd8fc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    max-width: 600px; /* PC da kenglik */
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.8rem; /* text kamaytirildi */
+}
+
+.learn-card:hover {
+    background: rgba(26, 115, 232, 0.3);
+    box-shadow: 0 15px 45px rgba(26, 115, 232, 0.7);
+    color: white;
+}
+
+.learn-card h3 {
+    margin-bottom: 1.25rem;
+    font-size: 1.12rem; /* 0.8 x 1.4rem */
+    font-weight: 700;
+}
+
+.learn-card p {
+    font-size: 0.8rem; /* kamaytirildi */
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Learn button */
+.learn-button {
+    align-self: flex-start;
+    background-color: #1a59e0;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease;
+    font-size: 0.9rem; /* kichraytirildi */
+}
+
+.learn-button:hover {
+    background-color: #133ea1;
+}
+
+/* Owner info */
+.button-with-owner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.owner-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem; /* kamaytirildi */
+    flex-wrap: wrap;
+    max-width: 100%;
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.owner-info b,
+.owner-info span {
+    font-size: 0.76rem; /* kamaytirildi */
+    overflow: visible;
+    white-space: normal;
+    text-overflow: clip;
+}
+
+.owner-img-inline {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #82aaff;
+    box-shadow: 0 2.5px 7.5px rgba(130,170,255,0.3);
+    flex-shrink: 0;
+}
+
+/* Badge */
+.badge-row {
+    display: flex;
+    gap: 0.625rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 15px;
+    font-weight: 600;
+    background: #1a59e0;
+    color: white;
+    box-shadow: 0 2.5px 7.5px rgba(0,0,0,0.2);
+}
+
+.badge.new {
+    background: #28a745;
+}
+
+.badge.popular {
+    background: #ff5722;
+}
+
+/* Dark mode toggle */
+#dark-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(40,40,40,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: #82aaff;
+    font-size: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(130,170,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    user-select: none;
+    z-index: 9999; /* yuqoriga chiqarildi */
+}
+
+#dark-toggle:hover {
+    background: rgba(26,115,232,0.8);
+    color: white;
+}
+
+/* Light mode styles */
+body.light-mode {
+    background-color: #f4f4f6;
+    color: #222;
+}
+
+body.light-mode .sidebar {
+    background-color: #e9e9ee;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+}
+
+body.light-mode .sidebar h2 {
+    color: #1a59e0;
+}
+
+body.light-mode .sidebar nav a {
+    color: #333;
+}
+
+body.light-mode .sidebar nav a:hover,
+body.light-mode .sidebar nav a.active {
+    background-color: #d0d8f3;
+    color: #000;
+}
+
+body.light-mode main.main-content {
+    background: #fdfdff !important;
+}
+
+body.light-mode main.main-content h1 {
+    color: #1a59e0;
+    text-shadow: none;
+}
+
+body.light-mode .learn-card {
+    background: rgba(240, 242, 245, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #222;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    transition: all 0.3s ease;
+}
+
+body.light-mode .learn-card:hover {
+    background: rgba(220, 230, 255, 0.75);
+    box-shadow: 0 12px 24px rgba(26, 115, 232, 0.15);
+    color: #000;
+}
+
+body.light-mode .learn-card h3 {
+    color: #1a59e0;
+}
+
+body.light-mode .learn-button {
+    background-color: #1a59e0;
+    color: white;
+}
+
+body.light-mode .learn-button:hover {
+    background-color: #133ea1;
+}
+
+body.light-mode #dark-toggle {
+    background: rgba(200, 200, 200, 0.9);
+    color: #1a59e0;
+}
+
+body.light-mode #dark-toggle:hover {
+    background: rgba(26, 115, 232, 0.8);
+    color: white;
+}
+
+/* Card footer */
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    margin-top: auto;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+    .learn-grid {
+        grid-template-columns: 1fr !important;
+        padding: 1rem;
+        gap: 1.5rem;
+        justify-content: center;
+        justify-items: center;
+    }
+
+    .learn-card {
+        width: 90vw;
+        max-width: none;
+        padding: 1.5rem;
+        font-size: 0.9rem;
+        margin: 0 auto;
+    }
+
+    .learn-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .learn-card p {
+        white-space: normal;
+        font-size: 1rem;
+    }
+
+    .learn-button {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.25rem;
+    }
+
+    .owner-info {
+        font-size: 0.95rem;
+        flex-wrap: wrap;
+        white-space: normal;
+    }
+
+    .owner-img-inline {
+        width: 45px;
+        height: 45px;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+}
+
+/* Planshetlar uchun 2 ustun */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .learn-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

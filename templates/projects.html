@@ -5,24 +5,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UzDevHub - Loyihalar</title>
+  <link rel="stylesheet" href="{% static 'css/account_modal.css' %}?v=20250713">
   <link rel="stylesheet" href="{% static 'css/projects.css' %}" />
   <link rel="stylesheet" href="{% static 'css/modal_auto_open.css' %}" />
+
 </head>
 <body {% if request.COOKIES.theme == "light" %}class="light-mode"{% endif %} data-modal-slug="{{ modal_open_slug|default:'' }}">
-
-
-<!-- qolgan kodlar -->
-
 
   {% include 'sidebar.html' %}
 
   <main class="main-content">
     <h1>Loyihalar</h1>
 
+    <!-- Loyihalar bo‘limidagi oddiy ism/familiya matni -->
+    {% comment %}
+    Bu yerda foydalanuvchi ismi/familiyasi oddiy tekst ko‘rinishda qoladi,
+    chunki faol tugma faqat forma modalida bo‘ladi.
+    {% endcomment %}
+
     <!-- JSON ma'lumotni xavfsiz joylashtirish -->
     {{ projects_json|json_script:"project-json" }}
-
-
 
     <div class="project-grid" id="project-container">
       {% for item in projects %}
@@ -74,11 +76,26 @@
         <form id="add-project-form" enctype="multipart/form-data">
           <div id="form-step-1">
             <h2>Keling, tanishib olaylik.</h2>
-            <input type="text" name="owner_name" placeholder="Ismingiz" required />
-            <input type="text" name="owner_last_name" placeholder="Familyangiz" required />
+
+            {% if request.user.first_name and request.user.last_name %}
+            <!-- Faol ism/familiya tugma faqat formada -->
+            <button type="button" id="user-info-btn" class="readonly-name-btn">
+              👤 {{ request.user.first_name }} {{ request.user.last_name }}
+            </button>
+
+            <!-- Hidden inputlar form uchun -->
+            <input type="hidden" name="owner_name" value="{{ request.user.first_name }}">
+            <input type="hidden" name="owner_last_name" value="{{ request.user.last_name }}">
+
             <input type="text" name="title" placeholder="Loyihangiz sarlavhasi" required />
             <textarea name="description" placeholder="Loyihangizga izoh" required></textarea>
+
             <button type="button" id="next-btn">Keyingi</button>
+            {% else %}
+            <p style="color:red; font-weight:bold;">
+              Avval <a href="{% url 'accounts:profile' %}" style="color:#1a59e0;">Hisobim</a> bo‘limida ism va familiyangizni to‘ldiring!
+            </p>
+            {% endif %}
           </div>
 
           <div id="form-step-2" style="display: none;">
@@ -105,14 +122,42 @@
       </div>
     </div>
   </main>
+<!-- Foydalanuvchi ma'lumotlari modal -->
+<div id="user-info-modal" class="modal">
+  <div class="modal-content">
+    <span id="close-user-info" class="close">&times;</span>
+    <h2>Hisob ma'lumotlari</h2>
+    <div class="user-info-content">
+      <p><strong>Ism:</strong> {{ request.user.first_name }}</p>
+      <p><strong>Familiya:</strong> {{ request.user.last_name }}</p>
+      <p><strong>Kasb:</strong> {{ request.user.profession|default:"Ma'lumot yo'q" }}</p>
+      <p><strong>Manzil:</strong> {{ request.user.address|default:"Ma'lumot yo'q" }}</p>
+      <p><strong>Email:</strong> {{ request.user.email }}</p>
+      <p><strong>Telegram:</strong> {{ request.user.telegram|default:"Yo'q" }}</p>
+      <p><strong>LinkedIn:</strong> {{ request.user.linkedin|default:"Yo'q" }}</p>
+      <p><strong>GitHub:</strong> {{ request.user.github|default:"Yo'q" }}</p>
+      <p><strong>Website:</strong> {{ request.user.website|default:"Yo'q" }}</p>
+      <p><strong>Bio:</strong> {{ request.user.bio|default:"Yo'q" }}</p>
+      <p><strong>Telefon:</strong> {{ request.user.phone_number|default:"Yo'q" }}</p>
+      <p><strong>Jinsi:</strong>
+        {% if request.user.gender == "male" %}Erkak
+        {% elif request.user.gender == "female" %}Ayol
+        {% else %}Yo‘q{% endif %}
+      </p>
+    </div>
+  </div>
+</div>
 
   <button id="dark-toggle" title="Rejimni almashtirish">☀️</button>
   <button id="copy-link-btn" title="Ulashish">🚀</button>
+
   <script src="{% static 'js/toggle.js' %}"></script>
   <script src="{% static 'js/add.js' %}"></script>
   <script src="{% static 'js/load.js' %}"></script>
   <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/modal_auto_open.js' %}"></script>
+  <script src="{% static 'js/account_data.js' %}"></script>
+  {% include 'account_modal.html' %}
 
 </body>
 </html>

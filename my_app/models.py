@@ -125,8 +125,6 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=False)
     verification_code = models.CharField(max_length=6, blank=True, null=True)
-
-
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     profession = models.CharField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
@@ -134,7 +132,6 @@ class CustomUser(AbstractUser):
     workplace = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     last_activity = models.DateTimeField(auto_now=True)
-
     telegram = models.URLField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
     github = models.URLField(blank=True, null=True)

@@ -1,0 +1,286 @@
+/* ====== RESET ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 125%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: 225px;
+    min-width: 225px;
+    max-width: 225px;
+    background-color: #1b1b1b;
+    padding: 25px 12.5px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+    user-select: none;
+    flex-shrink: 0;
+    font-size: 1rem;
+}
+
+.sidebar h2 {
+    color: #82aaff;
+    margin-bottom: 1.875rem;
+    font-size: 1.5rem;
+    user-select: none;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #a8b0d0;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 0;
+    border-radius: 6.25px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background 0.3s ease;
+}
+
+.sidebar nav a:hover {
+    background-color: #2a52d8;
+    color: #e6e6e6;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+  min-height: 100vh;
+}
+
+.main-content h1 {
+  color: #82aaff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+  font-size: 1.8rem;
+  font-weight: 700;
+  user-select: none;
+}
+/* Cards container */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+    max-width: 1500px;
+    width: 100%;
+}
+
+/* Glass card */
+.glass-card {
+    background: rgba(19, 35, 66, 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    border: 1px solid rgba(56, 94, 151, 0.7);
+    padding: 1.875rem;
+    width: calc(25% - 1.25rem);
+    color: #cfd8fc;
+    box-shadow: 0 10px 40px rgba(46, 81, 151, 0.6);
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.8rem; /* text kichraytirildi */
+}
+
+.glass-card:hover {
+    background: rgba(36, 59, 96, 0.9);
+    box-shadow: 0 10px 40px rgba(46, 81, 151, 0.8);
+    transform: translateY(-12.5px);
+}
+
+/* Card text styling */
+.card-header {
+    font-size: 1.2rem; /* 0.8 x 1.5rem */
+    font-weight: bold;
+    margin-bottom: 0.625rem;
+    color: #82aaff;
+}
+
+.card-body {
+    font-size: 0.8rem; /* kamaytirildi */
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    color: #d0d0d0;
+    line-height: 1.4;
+}
+
+.card-date {
+    font-size: 0.8rem; /* kamaytirildi */
+    color: #a3b2e2;
+    margin-bottom: 1.25rem;
+    user-select: none;
+}
+
+.card-button {
+    background-color: #1a59e0;
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s ease;
+    user-select: none;
+    font-size: 0.9rem; /* kichraytirildi */
+}
+
+.card-button:hover {
+    background-color: #133ea1;
+}
+
+/* Dark mode toggle */
+#dark-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(40,40,40,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: #82aaff;
+    font-size: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(130,170,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    user-select: none;
+    z-index: 9999;
+}
+
+#dark-toggle:hover {
+    background: rgba(26,115,232,0.8);
+    color: white;
+}
+
+/* Light mode styling */
+body.light-mode {
+    background-color: white;
+    color: #222;
+}
+
+body.light-mode .sidebar {
+  background-color: #e9e9ee;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .sidebar h2 {
+  color: #1a59e0;
+}
+
+body.light-mode .sidebar nav a {
+  color: #333;
+}
+
+body.light-mode .sidebar nav a:hover,
+body.light-mode .sidebar nav a.active {
+  background-color: #d0d8f3;
+  color: #000;
+}
+
+body.light-mode main.main-content {
+    background: #ffffff;
+    color: #222;
+}
+
+body.light-mode h1 {
+    color: #1a59e0;
+    text-shadow: none;
+}
+
+body.light-mode #dark-toggle {
+    background: rgba(200, 200, 200, 0.9);
+    color: #1a59e0;
+}
+
+body.light-mode #dark-toggle:hover {
+    background: rgba(26,115,232,0.8);
+    color: white;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Gorizontal markazlashtirish */
+    gap: 1.25rem;
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.glass-card {
+    background: rgba(19, 35, 66, 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    border: 1px solid rgba(56, 94, 151, 0.7);
+    padding: 1.875rem;
+    width: calc(25% - 1.25rem); /* Kompyuter uchun 4 ta ustun */
+    color: #cfd8fc;
+    box-shadow: 0 10px 40px rgba(46, 81, 151, 0.6);
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0; /* margin o‘chirildi, gap ishlatamiz */
+}
+
+/* Mobil uchun to‘liq responsiv */
+@media (max-width: 768px) {
+
+   .cards-container {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center; /* Gorizontal markazlashtirish */
+     align-items: center; /* Vertikal markazlashtirish, ixtiyoriy */
+     gap: 1.25rem;
+     max-width: 1500px;
+
+     width: 100%;
+     margin-left: auto;  /* markazlashtirish uchun */
+     margin-right: auto; /* markazlashtirish uchun */
+     box-sizing: border-box;
+}
+
+
+    .glass-card {
+        width: 90vw;          /* Ekranning 90% kengligi */
+        max-width: 600px;     /* Maksimal kenglik */
+        font-size: 0.7rem;
+        padding: 1.25rem;
+        box-sizing: border-box;
+    }
+}
+
+/* Planshet uchun 2 ustun */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .glass-card {
+        width: calc(50% - 1.25rem); /* 2 ta ustun */
+    }
+}

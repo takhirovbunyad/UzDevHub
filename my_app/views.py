@@ -60,6 +60,7 @@ def dash_view(request):
     initial_cards = Dash.objects.all().order_by('-id')[:6]
     return render(request, 'dash.html', {'initial_cards': initial_cards})
 
+
 @login_required
 @csrf_exempt
 def add_project(request):
@@ -73,10 +74,25 @@ def add_project(request):
             if not project.publish:
                 project.publish = timezone.now()
             project.save()
-            return JsonResponse({'success': True})
+
+            # Javobda loyiha ma'lumotlarini qaytaring
+            project_data = {
+                'id': project.id,
+                'slug': project.slug,
+                'title': project.title,
+                'description': project.description,
+                'owner_name': project.owner_name,
+                'owner_last_name': project.owner_last_name,
+                'file': project.file.url if project.file else '',
+                'url': project.url if project.url else '',
+                'category': project.category.name if project.category else '',
+                'publish': project.publish.isoformat() if project.publish else ''
+            }
+            return JsonResponse({'success': True, 'project': project_data})
         else:
             return JsonResponse({'success': False, 'error': form.errors.as_json()})
     return JsonResponse({'success': False, 'error': 'Noto‘g‘ri metod'})
+
 
 @login_required
 def project_list(request, slug=None):

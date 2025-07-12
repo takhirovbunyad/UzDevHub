@@ -1,0 +1,541 @@
+/* ====== RESET ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 125%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ====== SIDEBAR ====== */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  width: 225px;
+  min-width: 225px;
+  max-width: 225px;
+  background-color: #1b1b1b;
+  padding: 25px 12.5px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+  user-select: none;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.sidebar h2 {
+  color: #82aaff;
+  margin-bottom: 1.875rem;
+  font-size: 1.5rem;
+  user-select: none;
+}
+
+.sidebar nav a {
+  display: block;
+  color: #cfd8fc;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  padding: 0.5rem 0;
+  border-radius: 6.25px;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.sidebar nav a:hover {
+  background-color: #2a52d8;
+  color: white;
+}
+
+/* ====== MAIN CONTENT ====== */
+.main-content {
+  flex: 1;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+  min-height: 100vh;
+}
+
+.main-content h1 {
+  color: #82aaff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(130, 170, 255, 0.8);
+  font-size: 1.8rem;
+  font-weight: 700;
+  user-select: none;
+}
+
+/* ====== PROJECT GRID ====== */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+  gap: 2.5rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* ====== PROJECT CARD ====== */
+.project-card {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 18.75px;
+  padding: 1.875rem;
+  box-shadow: 0 10px 30px rgba(10, 10, 10, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    background: rgba(26, 115, 232, 0.3);
+    box-shadow: 0 15px 45px rgba(26, 115, 232, 0.6);
+  }
+}
+
+.project-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.625rem;
+  color: #82aaff;
+}
+
+.project-card p {
+  font-size: 1.1875rem;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+.project-card .owner {
+  margin-top: 1.25rem;
+  font-size: 1.0625rem;
+  color: #aaa;
+}
+
+/* ====== CATEGORY BADGE ====== */
+.category-badge {
+  display: inline-block;
+  background-color: #1a59e0;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 5px 12.5px;
+  border-radius: 7.5px;
+  margin-bottom: 0.75rem;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+/* ====== MODAL ====== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #1e1e2f;
+  padding: 2.5rem;
+  border-radius: 18.75px;
+  max-width: 625px;
+  width: 90%;
+  color: #fff;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  color: #82aaff;
+  margin-bottom: 1.25rem;
+}
+
+.modal-content .modal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.modal-buttons a {
+  background: #1a59e0;
+  color: white;
+  padding: 0.625rem 1.25rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.modal-buttons a:hover {
+  background: #133ea1;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 12.5px;
+  right: 17.5px;
+  font-size: 35px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+/* ====== TOGGLE BUTTON ====== */
+#dark-toggle {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(40, 40, 40, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: #82aaff;
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(130, 170, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  z-index: 99999;
+}
+
+/* ====== ADD BUTTON ====== */
+#open-add-modal {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  width: 68.75px;
+  height: 68.75px;
+  border-radius: 50%;
+  background-color: #1a59e0;
+  color: white;
+  font-size: 35px;
+  border: none;
+  box-shadow: 0 5px 19px rgba(26, 89, 224, 0.5);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+#open-add-modal:hover {
+  background-color: #133ea1;
+}
+
+/* ====== FORM ELEMENTS ====== */
+#add-project-form input,
+#add-project-form textarea,
+#add-project-form select {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background-color: #1c1c1c;
+  color: #fff;
+  font-size: 1.25rem;
+  outline: none;
+}
+
+#add-project-form input:focus,
+#add-project-form textarea:focus,
+#add-project-form select:focus {
+  border-color: #82aaff;
+}
+
+#form-step-2 {
+  max-height: 87.5vh;
+  overflow-y: auto;
+  padding-bottom: 1.25rem;
+}
+
+#form-step-2 .modal-buttons {
+  margin-top: 2.5rem;
+  justify-content: flex-end;
+}
+
+#add-project-form button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#next-btn,
+#back-btn {
+  background-color: #444;
+  color: #fff;
+  margin-right: 1.25rem;
+}
+
+#submit-btn {
+  background-color: #1a59e0;
+  color: #fff;
+}
+
+#next-btn:hover,
+#back-btn:hover,
+#submit-btn:hover {
+  background-color: #133ea1;
+}
+
+/* ====== LOAD MORE BUTTON ====== */
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 25px;
+}
+
+#load-btn {
+  background-color: #2b2b2b;
+  color: #fff;
+  border: none;
+  padding: 15px 35px;
+  font-size: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 7.5px 22.5px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+#load-btn:hover {
+  background-color: #1a59e0;
+  color: #fff;
+}
+
+/* ====== LIGHT MODE ====== */
+body.light-mode {
+  background-color: #f4f4f4;
+  color: #111;
+}
+
+body.light-mode .sidebar {
+  background-color: #e9e9ee;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .sidebar h2 {
+  color: #1a59e0;
+}
+
+body.light-mode .sidebar nav a {
+  color: #333;
+}
+
+body.light-mode .sidebar nav a:hover,
+body.light-mode .sidebar nav a.active {
+  background-color: #d0d8f3;
+  color: #000;
+}
+
+body.light-mode main.main-content {
+  background: #ffffff;
+}
+
+body.light-mode main.main-content h1 {
+  color: #1a59e0 !important;
+  text-shadow: none;
+}
+
+body.light-mode .project-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  color: #222;
+}
+
+body.light-mode .project-card h3 {
+  color: #0b234a;
+}
+
+body.light-mode .project-card p,
+body.light-mode .project-card .owner {
+  color: #222;
+}
+
+body.light-mode .project-card:hover {
+  background: #f0f6ff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .modal-content {
+  background: #fefefe;
+  color: #000;
+}
+
+body.light-mode #dark-toggle {
+  background: rgba(200, 200, 200, 0.9);
+  color: #1a59e0;
+}
+
+body.light-mode #dark-toggle:hover {
+  background: rgba(26, 115, 232, 0.8);
+  color: white;
+}
+
+body.light-mode #open-add-modal {
+  background-color: #3f6ee8;
+}
+
+body.light-mode #open-add-modal:hover {
+  background-color: #274ec9;
+}
+
+body.light-mode .category-badge {
+  background-color: #3f6ee8;
+}
+
+body.light-mode #load-btn {
+  background-color: #dbe3fc;
+  color: #1a59e0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode #load-btn:hover {
+  background-color: #b4c8fc;
+  color: #0c3edb;
+}
+
+body.light-mode #add-project-form input,
+body.light-mode #add-project-form textarea,
+body.light-mode #add-project-form select {
+  background-color: #fff;
+  color: #111;
+  border: 1px solid #ccc;
+}
+
+body.light-mode #next-btn,
+body.light-mode #back-btn {
+  background-color: #888;
+}
+
+body.light-mode #submit-btn {
+  background-color: #1a59e0;
+}
+
+/* ====== RESPONSIVE: Mobil uchun ====== */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    z-index: 999;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr !important;
+    padding: 1rem;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .project-card {
+    width: 90vw;
+    max-width: none;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    margin: 0 auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(10, 10, 10, 0.5);
+  }
+
+  /* Mobilda hover effekti yo‘q */
+  .project-card:hover {
+    background: inherit;
+    box-shadow: inherit;
+  }
+
+  .modal-content {
+    max-width: 95% !important;
+    padding: 1.5rem;
+    max-height: 85vh;
+  }
+
+  #dark-toggle,
+  #open-add-modal {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+}
+
+/* ====== Planshet uchun ikki ustun ====== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.step-subtitle {
+  font-size: 1.2rem;
+  color: #82aaff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+<style>
+  body {
+    background-image: url("{% static 'images/nature.jpg' %}");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+</style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* orqadagi qorong‘i fon */
+  display: flex;
+  justify-content: center;  /* gorizontal markaz */
+  align-items: center;      /* vertikal markaz */
+  visibility: hidden;       /* dastlab ko‘rinmasin */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.modal.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  position: relative;
+}

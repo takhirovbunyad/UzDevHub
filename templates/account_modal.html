@@ -1,0 +1,47 @@
+<!-- account_modal.html -->
+
+{% load static %}
+
+<div id="profile-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="profile-modal-close">&times;</span>
+    <div class="profile-preview">
+      <!-- Rasm va ism -->
+      <div class="profile-header">
+        {% if request.user.profile_image %}
+          <img src="{{ request.user.profile_image.url }}" alt="Profil rasmi" class="profile-img" />
+        {% else %}
+          <img src="{% static 'images/pic.png' %}" alt="Default rasm" class="profile-img" />
+        {% endif %}
+        <h2>{{ request.user.first_name|default:"Ism yo‘q" }} {{ request.user.last_name|default:"Familiya yo‘q" }}</h2>
+        <p class="profession">{{ request.user.profession|default:"Kasb kiritilmagan" }}</p>
+      </div>
+
+      <!-- Ma'lumotlar -->
+      <div class="profile-info">
+  <div class="info-card"><i>📧</i>{{ request.user.email }}</div>
+  <div class="info-card"><i>📍</i>{{ request.user.address|default:"-" }}</div>
+  <div class="info-card"><i>🏢</i>{{ request.user.workplace|default:"-" }}</div>
+  <div class="info-card"><i>📱</i>{{ request.user.phone_number|default:"-" }}</div>
+  <div class="info-card"><i>👤</i>
+    {% if request.user.gender == "male" %}Erkak
+    {% elif request.user.gender == "female" %}Ayol
+    {% else %}-{% endif %}
+  </div>
+  <div class="info-card"><i>📝</i>{{ request.user.bio|default:"-" }}</div>
+  </div>
+
+
+      <!-- Ijtimoiy tarmoqlar -->
+      <div class="profile-socials">
+        <h3>🌐 Ijtimoiy tarmoqlar</h3>
+        <ul>
+          {% if request.user.telegram %}<li><a href="{{ request.user.telegram }}" target="_blank" rel="noopener noreferrer">Telegram</a></li>{% endif %}
+          {% if request.user.linkedin %}<li><a href="{{ request.user.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>{% endif %}
+          {% if request.user.github %}<li><a href="{{ request.user.github }}" target="_blank" rel="noopener noreferrer">GitHub</a></li>{% endif %}
+          {% if request.user.website %}<li><a href="{{ request.user.website }}" target="_blank" rel="noopener noreferrer">Website</a></li>{% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
