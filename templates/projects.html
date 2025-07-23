@@ -42,7 +42,12 @@
         <div class="modal-content">
           <span class="close" onclick="closeModal('{{ item.id }}')">&times;</span>
           <h2>{{ item.title }}</h2>
-          <p><strong>Muallif:</strong> {{ item.owner_name }} {{ item.owner_last_name }}</p>
+          <p><strong>Muallif:</strong>
+<button class="author-btn" onclick="showAuthorInfo({{ item.owner_id }})">
+  {{ item.owner_name }} {{ item.owner_last_name }}
+</button>
+
+          </p>
           <p>{{ item.description }}</p>
           {% if item.category %}
           <p><strong>Kategoriya:</strong> {{ item.category.name }}</p>

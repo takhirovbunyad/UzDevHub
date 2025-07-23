@@ -5,7 +5,7 @@ from accounts import views
 import json
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import News, Kurs, Dash , Projects , Category
+from .models import News, Kurs, Dash, Projects, Category, CustomUser
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import Pro_form
@@ -224,3 +224,23 @@ def projects_view_with_modal(request, year, month, day, slug):
 
     return render(request, 'projects.html', context)
 
+
+
+@login_required
+def user_profile(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    data = {
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "profession": getattr(user, "profession", ""),
+        "address": getattr(user, "address", ""),
+        "email": user.email,
+        "telegram": getattr(user, "telegram", ""),
+        "linkedin": getattr(user, "linkedin", ""),
+        "github": getattr(user, "github", ""),
+        "website": getattr(user, "website", ""),
+        "bio": getattr(user, "bio", ""),
+        "phone_number": getattr(user, "phone_number", ""),
+        "gender": getattr(user, "gender", ""),
+    }
+    return JsonResponse(data)

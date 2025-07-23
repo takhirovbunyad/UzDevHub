@@ -166,3 +166,21 @@ body:not(.light-mode) {
   --text-secondary: #dddddd;
   --border: #444;
 }
+
+
+.author-btn {
+  background: none;
+  border: none;
+  color: #1a73e8;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.author-btn:hover {
+  text-decoration: underline;
+}
+
+
+
