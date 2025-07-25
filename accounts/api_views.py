@@ -12,7 +12,7 @@ def user_info_api(request, user_id):
             'first_name': user.first_name,
             'last_name': user.last_name,
             'bio': user.bio,
-            'location': user.location,
+            'location': user.address, 
             'email': user.email,
             'username': user.username,
             'profile_image_url': user.profile_image.url if user.profile_image else '',

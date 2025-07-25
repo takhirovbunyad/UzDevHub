@@ -60,7 +60,6 @@ def dash_view(request):
     initial_cards = Dash.objects.all().order_by('-id')[:6]
     return render(request, 'dash.html', {'initial_cards': initial_cards})
 
-
 @login_required
 @csrf_exempt
 def add_project(request):
@@ -68,6 +67,10 @@ def add_project(request):
         form = Pro_form(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
+
+            # ✅ Eng MUHIM qator – egasini belgilaymiz:
+            project.owner = request.user
+
             project.status = 'published'
             if not project.slug:
                 project.slug = slugify(project.title)
@@ -75,7 +78,6 @@ def add_project(request):
                 project.publish = timezone.now()
             project.save()
 
-            # Javobda loyiha ma'lumotlarini qaytaring
             project_data = {
                 'id': project.id,
                 'slug': project.slug,
@@ -244,3 +246,29 @@ def user_profile(request, user_id):
         "gender": getattr(user, "gender", ""),
     }
     return JsonResponse(data)
+
+
+
+
+
+
+from django.http import JsonResponse
+from .models import CustomUser
+
+def user_info_by_name(request):
+    first = request.GET.get('first')
+    last = request.GET.get('last')
+    if not first or not last:
+        return JsonResponse({'error': 'first va last bo\'lishi kerak'}, status=400)
+    try:
+        user = CustomUser.objects.get(first_name=first, last_name=last)
+        data = {
+            'username': user.username,
+            'email': user.email,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            # qolgan maydonlar kerak bo'lsa qo'sh
+        }
+        return JsonResponse(data)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)

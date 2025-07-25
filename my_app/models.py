@@ -12,6 +12,9 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
 
+from config import settings
+
+
 class News(models.Model):
     name = models.CharField("Sarlavha", max_length=50)
     desc = models.TextField("Izoh", max_length=200)
@@ -53,55 +56,7 @@ class PublishedManager(models.Manager):
         return super().get_queryset().filter(status='published')
 
 
-class Projects(models.Model):
-    STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published')
-    )
-
-    owner_name = models.CharField('Ismingiz', max_length=20)
-    owner_last_name = models.CharField('Familyangiz', max_length=20)
-    title = models.CharField('Sarlavha', max_length=70)
-    code = models.TextField('Kodingizni joylashtiring', blank=True, null=True)
-    url = models.URLField('Batafsil', blank=True, null=True)
-    description = models.CharField("Izoh", max_length=200)
-    datetime = models.DateTimeField("Qo‘shilgan vaqti", auto_now_add=True)
-    file = models.FileField(upload_to='code_files/', blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    slug = models.SlugField(max_length=255, unique_for_date="publish", blank=True)
-    publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
-
-    objects = models.Manager()  # Default manager
-    published = PublishedManager()  # Custom manager
-
-    class Meta:
-        ordering = ('-publish',)
-
-    def __str__(self):
-        return self.title
-
-    def get_absolute_url(self):
-        return reverse("projects:project_detail", args=[
-            self.publish.year,
-            self.publish.month,
-            self.publish.day,
-            self.slug
-        ])
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        if not self.publish:
-            self.publish = timezone.now()
-        if not self.status:
-            self.status = 'draft'
-        super().save(*args, **kwargs)
-
-
-
+# --- avval CustomUser ---
 GENDER_CHOICES = [
     ('male', 'Erkak'),
     ('female', 'Ayol'),
@@ -136,7 +91,6 @@ class CustomUser(AbstractUser):
     linkedin = models.URLField(blank=True, null=True)
     github = models.URLField(blank=True, null=True)
     website = models.URLField(blank=True, null=True)
-
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -147,3 +101,57 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
+
+
+class Projects(models.Model):
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published')
+    )
+
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='projects')
+
+    owner_username = models.CharField(max_length=150, db_index=True)
+
+
+    owner_name = models.CharField('Ismingiz', max_length=20)
+    owner_last_name = models.CharField('Familyangiz', max_length=20)
+
+    title = models.CharField('Sarlavha', max_length=70)
+    code = models.TextField('Kodingizni joylashtiring', blank=True, null=True)
+    url = models.URLField('Batafsil', blank=True, null=True)
+    description = models.CharField("Izoh", max_length=200)
+    datetime = models.DateTimeField("Qo‘shilgan vaqti", auto_now_add=True)
+    file = models.FileField(upload_to='code_files/', blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    slug = models.SlugField(max_length=255, unique_for_date="publish", blank=True)
+    publish = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+
+    objects = models.Manager()
+    published = PublishedManager()
+
+    class Meta:
+        ordering = ('-publish',)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse("projects:project_detail", args=[
+            self.publish.year,
+            self.publish.month,
+            self.publish.day,
+            self.slug
+        ])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        if not self.publish:
+            self.publish = timezone.now()
+        if not self.status:
+            self.status = 'draft'
+        super().save(*args, **kwargs)

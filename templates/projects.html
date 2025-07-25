@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="{% static 'css/account_modal.css' %}?v=20250713">
   <link rel="stylesheet" href="{% static 'css/projects.css' %}" />
   <link rel="stylesheet" href="{% static 'css/modal_auto_open.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/author_modal.css' %}">
+
 
 </head>
 <body {% if request.COOKIES.theme == "light" %}class="light-mode"{% endif %} data-modal-slug="{{ modal_open_slug|default:'' }}">
@@ -17,13 +19,6 @@
   <main class="main-content">
     <h1>Loyihalar</h1>
 
-    <!-- Loyihalar bo‘limidagi oddiy ism/familiya matni -->
-    {% comment %}
-    Bu yerda foydalanuvchi ismi/familiyasi oddiy tekst ko‘rinishda qoladi,
-    chunki faol tugma faqat forma modalida bo‘ladi.
-    {% endcomment %}
-
-    <!-- JSON ma'lumotni xavfsiz joylashtirish -->
     {{ projects_json|json_script:"project-json" }}
 
     <div class="project-grid" id="project-container">
@@ -42,11 +37,11 @@
         <div class="modal-content">
           <span class="close" onclick="closeModal('{{ item.id }}')">&times;</span>
           <h2>{{ item.title }}</h2>
-          <p><strong>Muallif:</strong>
-<button class="author-btn" onclick="showAuthorInfo({{ item.owner_id }})">
-  {{ item.owner_name }} {{ item.owner_last_name }}
-</button>
-
+          <p>
+            <strong>Muallif:</strong>
+            <button onclick="showAuthorInfo('{{ item.owner.username|escapejs }}')">
+              {{ item.owner.first_name }} {{ item.owner.last_name }}
+            </button>
           </p>
           <p>{{ item.description }}</p>
           {% if item.category %}
@@ -81,20 +76,14 @@
         <form id="add-project-form" enctype="multipart/form-data">
           <div id="form-step-1">
             <h2>Keling, tanishib olaylik.</h2>
-
             {% if request.user.first_name and request.user.last_name %}
-            <!-- Faol ism/familiya tugma faqat formada -->
             <button type="button" id="user-info-btn" class="readonly-name-btn">
               👤 {{ request.user.first_name }} {{ request.user.last_name }}
             </button>
-
-            <!-- Hidden inputlar form uchun -->
             <input type="hidden" name="owner_name" value="{{ request.user.first_name }}">
             <input type="hidden" name="owner_last_name" value="{{ request.user.last_name }}">
-
             <input type="text" name="title" placeholder="Loyihangiz sarlavhasi" required />
             <textarea name="description" placeholder="Loyihangizga izoh" required></textarea>
-
             <button type="button" id="next-btn">Keyingi</button>
             {% else %}
             <p style="color:red; font-weight:bold;">
@@ -127,31 +116,58 @@
       </div>
     </div>
   </main>
-<!-- Foydalanuvchi ma'lumotlari modal -->
-<div id="user-info-modal" class="modal">
-  <div class="modal-content">
-    <span id="close-user-info" class="close">&times;</span>
-    <h2>Hisob ma'lumotlari</h2>
-    <div class="user-info-content">
-      <p><strong>Ism:</strong> {{ request.user.first_name }}</p>
-      <p><strong>Familiya:</strong> {{ request.user.last_name }}</p>
-      <p><strong>Kasb:</strong> {{ request.user.profession|default:"Ma'lumot yo'q" }}</p>
-      <p><strong>Manzil:</strong> {{ request.user.address|default:"Ma'lumot yo'q" }}</p>
-      <p><strong>Email:</strong> {{ request.user.email }}</p>
-      <p><strong>Telegram:</strong> {{ request.user.telegram|default:"Yo'q" }}</p>
-      <p><strong>LinkedIn:</strong> {{ request.user.linkedin|default:"Yo'q" }}</p>
-      <p><strong>GitHub:</strong> {{ request.user.github|default:"Yo'q" }}</p>
-      <p><strong>Website:</strong> {{ request.user.website|default:"Yo'q" }}</p>
-      <p><strong>Bio:</strong> {{ request.user.bio|default:"Yo'q" }}</p>
-      <p><strong>Telefon:</strong> {{ request.user.phone_number|default:"Yo'q" }}</p>
-      <p><strong>Jinsi:</strong>
-        {% if request.user.gender == "male" %}Erkak
-        {% elif request.user.gender == "female" %}Ayol
-        {% else %}Yo‘q{% endif %}
-      </p>
+
+  <!-- Foydalanuvchi (o‘z) ma'lumotlari modal -->
+  <div id="user-info-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-user-info" class="close">&times;</span>
+      <h2>Hisob ma'lumotlari</h2>
+      <div class="user-info-content">
+        <p><strong>Ism:</strong> {{ request.user.first_name }}</p>
+        <p><strong>Familiya:</strong> {{ request.user.last_name }}</p>
+        <p><strong>Kasb:</strong> {{ request.user.profession|default:"Ma'lumot yo'q" }}</p>
+        <p><strong>Manzil:</strong> {{ request.user.address|default:"Ma'lumot yo'q" }}</p>
+        <p><strong>Email:</strong> {{ request.user.email }}</p>
+        <p><strong>Telegram:</strong> {{ request.user.telegram|default:"Yo'q" }}</p>
+        <p><strong>LinkedIn:</strong> {{ request.user.linkedin|default:"Yo'q" }}</p>
+        <p><strong>GitHub:</strong> {{ request.user.github|default:"Yo'q" }}</p>
+        <p><strong>Website:</strong> {{ request.user.website|default:"Yo'q" }}</p>
+        <p><strong>Bio:</strong> {{ request.user.bio|default:"Yo'q" }}</p>
+        <p><strong>Telefon:</strong> {{ request.user.phone_number|default:"Yo'q" }}</p>
+        <p><strong>Jinsi:</strong>
+          {% if request.user.gender == "male" %}Erkak
+          {% elif request.user.gender == "female" %}Ayol
+          {% else %}Yo‘q{% endif %}
+        </p>
+      </div>
     </div>
   </div>
+
+<!-- Author Info Modal -->
+<div id="public-user-info-modal" class="custom-modal">
+  <div class="custom-modal-content">
+    <span class="custom-modal-close" onclick="document.getElementById('public-user-info-modal').style.display='none'">&times;</span>
+
+    <h2>Foydalanuvchi haqida</h2>
+    <div class="profile-img-container">
+      <img id="public-user-profile-image" src="" alt="Profile">
+    </div>
+
+    <p><strong>Ism Familiya:</strong> <span id="public-user-fullname"></span></p>
+    <p><strong>Email:</strong> <span id="public-user-email"></span></p>
+    <p><strong>Kasbi:</strong> <span id="public-user-profession"></span></p>
+    <p><strong>Bio:</strong> <span id="public-user-bio"></span></p>
+    <p><strong>Manzil:</strong> <span id="public-user-address"></span></p>
+    <p><strong>Ish joyi:</strong> <span id="public-user-workplace"></span></p>
+    <p><strong>Telefon:</strong> <span id="public-user-phone"></span></p>
+    <p><strong>Telegram:</strong> <a id="public-user-telegram" href="#" target="_blank">Telegram</a></p>
+    <p><strong>GitHub:</strong> <a id="public-user-github" href="#" target="_blank">GitHub</a></p>
+    <p><strong>LinkedIn:</strong> <a id="public-user-linkedin" href="#" target="_blank">LinkedIn</a></p>
+    <p><strong>Website:</strong> <a id="public-user-website" href="#" target="_blank">Website</a></p>
+  </div>
 </div>
+
+
 
   <button id="dark-toggle" title="Rejimni almashtirish">☀️</button>
   <button id="copy-link-btn" title="Ulashish">🚀</button>
@@ -162,7 +178,8 @@
   <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/modal_auto_open.js' %}"></script>
   <script src="{% static 'js/account_data.js' %}"></script>
-  {% include 'account_modal.html' %}
+  <script src="{% static 'js/author_info.js' %}"></script>
 
+  {% include 'account_modal.html' %}
 </body>
 </html>

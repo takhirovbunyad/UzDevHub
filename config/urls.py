@@ -9,7 +9,7 @@ urlpatterns = [
     path('', include('my_app.urls')),
     path('auth/', include('accounts.urls', namespace='accounts')),
     path('profile/', profile_view, name='profile'),
-
+    path('accounts/', include('accounts.urls', namespace='accounts')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

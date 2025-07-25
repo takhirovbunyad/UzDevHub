@@ -1,0 +1,128 @@
+/* ===== Author Info Modal CSS ===== */
+.custom-modal {
+  display: none; /* Defaultda yopiq */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+
+/* Modal ochilganda ko‘rinadi */
+.custom-modal.show {
+  display: flex;
+}
+
+.custom-modal-content {
+  background-color: var(--bg);
+  color: var(--text);
+  width: 90%;
+  max-width: 500px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+  position: relative;
+  font-family: sans-serif;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalFade 0.3s ease;
+}
+
+/* Qizil X tugmasi */
+.custom-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff4d4d;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.custom-modal-close:hover {
+  color: #ff1a1a;
+  transform: scale(1.1);
+}
+
+/* Profil rasmi */
+.profile-img-container {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.profile-img-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Linklar */
+.custom-modal-content a {
+  color: #0077cc;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+.custom-modal-content a:hover {
+  text-decoration: underline;
+}
+
+/* Light mode (default) */
+:root {
+  --bg: #fff;
+  --text: #222;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1f1f1f;
+    --text: #f0f0f0;
+  }
+
+  .custom-modal-content {
+    box-shadow: 0 12px 25px rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Animatsiya */
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 500px) {
+  .custom-modal-content {
+    padding: 16px;
+    max-width: 90%;
+  }
+
+  .custom-modal-close {
+    top: 8px;
+    right: 12px;
+    font-size: 20px;
+  }
+
+  .profile-img-container img {
+    width: 80px;
+    height: 80px;
+  }
+}
