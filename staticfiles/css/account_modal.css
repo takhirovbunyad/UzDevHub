@@ -1,203 +1,186 @@
-/* account_modal.css */
-
-/* Modal asosiy oyna */
-#profile-modal.modal {
+/* MODAL USTKI QISMI */
+.modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  padding: 15px;
+  padding: 20px;
   overflow-y: auto;
-  transition: background-color 0.3s ease;
 }
-
-#profile-modal.modal.show {
+.modal.show {
   display: flex;
 }
 
-/* Modal kontenti */
-#profile-modal.modal .modal-content {
+/* MODAL KONTENT - IKKALA MODALGA */
+#profile-modal .modal-content,
+#user-info-modal .modal-content {
   background-color: var(--bg);
   color: var(--text);
-  border-radius: 12px;
-  max-width: 420px;
+  border-radius: 14px;
+  max-width: 480px;
   width: 100%;
-  padding: 25px 30px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  position: relative;
+  padding: 28px 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
   transition: background-color 0.3s, color 0.3s;
-  max-height: 90vh;
-  overflow-y: auto;
 }
 
-/* Yopish tugmasi */
-#profile-modal.modal .close {
+/* YOPISH */
+.modal .close {
   position: absolute;
-  top: 18px;
+  top: 16px;
   right: 20px;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 600;
   color: var(--text-muted);
   cursor: pointer;
   transition: color 0.2s ease-in-out;
-  user-select: none;
+}
+.modal .close:hover {
+  color: var(--primary);
 }
 
-#profile-modal.modal .close:hover {
-  color: var(--text);
-}
-
-/* Profil bosh qismi: rasm va ism */
-#profile-modal.modal .profile-header {
+/* PROFIL BOSHI (rasm, ism, kasb) */
+.profile-header {
   text-align: center;
   margin-bottom: 25px;
 }
-
-#profile-modal.modal .profile-img {
+.profile-img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--primary);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   margin-bottom: 15px;
 }
-
-#profile-modal.modal .profile-header h2 {
-  font-size: 1.8rem;
+.profile-header h2 {
+  font-size: 1.9rem;
   font-weight: 700;
   margin-bottom: 5px;
-  letter-spacing: 0.02em;
-  user-select: none;
+  color: var(--primary);
 }
-
-#profile-modal.modal .profile-header .profession {
-  font-size: 1rem;
+.profile-header .profession {
+  font-size: 1.05rem;
   color: var(--text-muted);
   font-weight: 500;
-  user-select: none;
 }
 
-/* Profil ma'lumotlari */
-#profile-modal.modal .profile-info p {
+/* MA'LUMOT BLOKLARI */
+.profile-info p,
+.user-info-content p {
   font-size: 0.95rem;
-  line-height: 1.4;
+  line-height: 1.5;
   margin: 10px 0;
   border-bottom: 1px solid var(--border);
   padding-bottom: 7px;
   color: var(--text-secondary);
-  user-select: text;
 }
-
-#profile-modal.modal .profile-info p strong {
+.profile-info p strong,
+.user-info-content p strong {
   color: var(--primary);
 }
 
-/* Ijtimoiy tarmoqlar */
-#profile-modal.modal .profile-socials h3 {
-  margin-top: 25px;
-  font-weight: 700;
+/* IJTIMOIY TARMOQLAR BLOKI */
+.profile-socials {
+  margin-top: 30px;
+}
+.profile-socials h3 {
   font-size: 1.1rem;
+  font-weight: 700;
   color: var(--primary);
   margin-bottom: 12px;
   border-bottom: 2px solid var(--primary);
   padding-bottom: 6px;
-  letter-spacing: 0.05em;
-  user-select: none;
 }
-
-#profile-modal.modal .profile-socials ul {
+.profile-socials ul {
   list-style: none;
   padding: 0;
-  margin: 0;
   display: flex;
-  gap: 14px;
-  justify-content: center;
   flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
 }
-
-#profile-modal.modal .profile-socials ul li a {
+.profile-socials ul li a {
   background-color: var(--primary);
   color: white;
-  padding: 8px 15px;
+  padding: 8px 16px;
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   transition: background-color 0.3s ease;
-  user-select: none;
 }
-
-#profile-modal.modal .profile-socials ul li a:hover {
+.profile-socials ul li a:hover {
   background-color: var(--primary-dark);
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  #profile-modal.modal .modal-content {
+/* RESPONSIVE */
+@media (max-width: 500px) {
+  #profile-modal .modal-content,
+  #user-info-modal .modal-content {
     padding: 20px;
     max-width: 95vw;
   }
-  #profile-modal.modal .profile-img {
+  .profile-img {
     width: 100px;
     height: 100px;
   }
-  #profile-modal.modal .profile-header h2 {
-    font-size: 1.5rem;
+  .profile-header h2 {
+    font-size: 1.6rem;
   }
 }
 
-/* Light/Dark rejim uchun o'zgaruvchilar */
+/* LIGHT/DARK MODE VARIABLAR */
 :root {
   --primary: #1a59e0;
   --primary-dark: #0f3ec2;
   --bg: #ffffff;
-  --text: #222222;
-  --text-muted: #666666;
-  --text-secondary: #444444;
-  --border: #e1e1e1;
+  --text: #1a1a1a;
+  --text-muted: #555555;
+  --text-secondary: #333333;
+  --border: #e0e0e0;
 }
 
 body.light-mode {
   --primary: #0057b8;
-  --primary-dark: #003e7e;
+  --primary-dark: #00409a;
   --bg: #f9f9f9;
   --text: #111111;
-  --text-muted: #555555;
-  --text-secondary: #333333;
-  --border: #d1d1d1;
+  --text-muted: #444444;
+  --text-secondary: #2d2d2d;
+  --border: #cccccc;
 }
 
-/* Ism/familiya tugmasi (readonly-name-btn) */
-.readonly-name-btn {
-  background: transparent;
+body:not(.light-mode) {
+  --primary: #4e8fff;
+  --primary-dark: #3669c9;
+  --bg: #2a2a2a;
+  --text: #f5f5f5;
+  --text-muted: #aaaaaa;
+  --text-secondary: #dddddd;
+  --border: #444;
+}
+
+
+.author-btn {
+  background: none;
   border: none;
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--primary);
+  color: #1a73e8;
+  font-weight: bold;
   cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 6px;
-  letter-spacing: 0.03em;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
-  display: inline-block;
-  user-select: none;
-  user-drag: none;
+  padding: 0;
+  margin: 0;
 }
 
-.readonly-name-btn:hover {
-  background-color: rgba(26, 89, 224, 0.1);
+.author-btn:hover {
+  text-decoration: underline;
 }
 
-/* Tugma va title orasidagi bo‘shliq */
-h1 + .readonly-name-btn {
-  margin-top: 8px;
-  margin-bottom: 24px;
-}
+
+

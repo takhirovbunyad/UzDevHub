@@ -1,22 +1,25 @@
-from django.core.serializers.json import DjangoJSONEncoder
+import json
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.utils import timezone
 from django.utils.text import slugify
-from accounts import views
-import json
-from django.shortcuts import render, get_object_or_404
-from django.core.paginator import Paginator
-from .models import News, Kurs, Dash, Projects, Category, CustomUser
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .forms import Pro_form
-from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.decorators import login_required
 
+from .forms import Pro_form
+from . import services
+
+
+# ------------------- DASHBOARD -------------------
 @login_required
 def first(request):
-    all_dash = Dash.objects.all().order_by('-id')
-    paginator = Paginator(all_dash, 6)
-    page_number = request.GET.get('page')
+    page_number = int(request.GET.get('page', 1))
+    page_size = 8
+    offset = (page_number - 1) * page_size
+    all_dash = services.get_all_dash(page_size, offset)
+
+    paginator = Paginator(all_dash, page_size)
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'dashboard.html', {'page_obj': page_obj})
@@ -24,20 +27,21 @@ def first(request):
 
 @login_required
 def news_view(request):
-    yangiliklar = News.objects.all().order_by('-created')
+    yangiliklar = services.get_all_news()
     return render(request, 'news.html', {'yangiliklar': yangiliklar})
+
 
 @login_required
 def learn_view(request):
-    kurslar = Kurs.objects.all()
+    kurslar = services.get_all_courses()
     return render(request, 'learn.html', {'kurslar': kurslar})
+
 
 def load_more_cards(request):
     page = int(request.GET.get("page", 1))
-    cards = Dash.objects.all().order_by('-id')
-    paginator = Paginator(cards, 6)
-
-    current_page = paginator.get_page(page)
+    page_size = 6
+    offset = (page - 1) * page_size
+    cards = services.get_all_dash(page_size, offset)
 
     data = {
         "cards": [
@@ -48,18 +52,20 @@ def load_more_cards(request):
                 "preview": obj.preview.url if obj.preview else '',
                 "source": obj.source
             }
-            for obj in current_page
+            for obj in cards
         ],
-        "has_next": current_page.has_next()
+        "has_next": len(cards) == page_size
     }
-
     return JsonResponse(data)
+
 
 @login_required
 def dash_view(request):
-    initial_cards = Dash.objects.all().order_by('-id')[:6]
+    initial_cards = services.get_initial_dash(6)
     return render(request, 'dash.html', {'initial_cards': initial_cards})
 
+
+# ------------------- PROJECTS -------------------
 @login_required
 @csrf_exempt
 def add_project(request):
@@ -67,10 +73,7 @@ def add_project(request):
         form = Pro_form(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
-
-            # ✅ Eng MUHIM qator – egasini belgilaymiz:
             project.owner = request.user
-
             project.status = 'published'
             if not project.slug:
                 project.slug = slugify(project.title)
@@ -98,9 +101,12 @@ def add_project(request):
 
 @login_required
 def project_list(request, slug=None):
-    projects = Projects.published.all().order_by('-publish')
-    paginator = Paginator(projects, 6)
-    page_number = request.GET.get('page', 1)
+    page_number = int(request.GET.get('page', 1))
+    page_size = 6
+    offset = (page_number - 1) * page_size
+
+    projects = services.get_published_projects(page_size, offset)
+    paginator = Paginator(projects, page_size)
     page_obj = paginator.get_page(page_number)
 
     projects_json = [
@@ -116,29 +122,25 @@ def project_list(request, slug=None):
             'category': p.category.name if p.category else '',
             'publish': p.publish.isoformat() if p.publish else ''
         }
-        for p in page_obj.object_list
+        for p in page_obj
     ]
 
     context = {
         'projects': page_obj,
         'projects_json': json.dumps(projects_json),
-        'categories': Category.objects.all(),
+        'categories': services.get_all_categories(),
         'has_next': page_obj.has_next(),
-        'slug': slug  # JS uchun URLdagi slug ni beramiz
+        'slug': slug
     }
-
     return render(request, 'projects.html', context)
+
 
 @login_required
 def project_detail(request, year, month, day, slug):
-    project = get_object_or_404(
-        Projects,
-        slug=slug,
-        status='published',
-        publish__year=year,
-        publish__month=month,
-        publish__day=day
-    )
+    project = services.get_project_detail(slug, year, month, day)
+    if not project:
+        return JsonResponse({'error': 'Project not found'}, status=404)
+
     data = {
         'id': project.id,
         'title': project.title,
@@ -151,19 +153,16 @@ def project_detail(request, year, month, day, slug):
     }
     return JsonResponse(data)
 
+
 @login_required
 def load_more_projects(request):
-    page = request.GET.get('page')
-    projects = Projects.published.all().order_by('-publish')
-    paginator = Paginator(projects, 6)
-
-    try:
-        projects_page = paginator.page(page)
-    except:
-        return HttpResponse("")
+    page = int(request.GET.get('page', 1))
+    page_size = 6
+    offset = (page - 1) * page_size
+    projects = services.get_published_projects(page_size, offset)
 
     html = ""
-    for item in projects_page:
+    for item in projects:
         category = f'<div class="category-badge">🏷️ {item.category.name}</div>' if item.category else ''
         description = item.description[:100] + ('...' if len(item.description) > 100 else '')
         file_link = f'<a href="{item.file.url}" download>📦 Faylni yuklash</a>' if item.file else ''
@@ -193,13 +192,12 @@ def load_more_projects(request):
             </div>
         </div>
         """
-
     return HttpResponse(html)
+
 
 @login_required
 def projects_view_with_modal(request, year, month, day, slug):
-    projects = Projects.published.all().order_by('-publish')
-
+    projects = services.get_all_published_projects()
     projects_json = [
         {
             'id': p.id,
@@ -218,19 +216,20 @@ def projects_view_with_modal(request, year, month, day, slug):
 
     context = {
         'projects': projects,
-        'projects_json': projects_json ,
-
-        'categories': Category.objects.all(),
+        'projects_json': projects_json,
+        'categories': services.get_all_categories(),
         'modal_open_slug': slug,
     }
-
     return render(request, 'projects.html', context)
 
 
-
+# ------------------- USERS -------------------
 @login_required
 def user_profile(request, user_id):
-    user = get_object_or_404(CustomUser, id=user_id)
+    user = services.get_user_by_id(user_id)
+    if not user:
+        return JsonResponse({'error': 'User not found'}, status=404)
+
     data = {
         "first_name": user.first_name,
         "last_name": user.last_name,
@@ -248,27 +247,20 @@ def user_profile(request, user_id):
     return JsonResponse(data)
 
 
-
-
-
-
-from django.http import JsonResponse
-from .models import CustomUser
-
 def user_info_by_name(request):
     first = request.GET.get('first')
     last = request.GET.get('last')
     if not first or not last:
         return JsonResponse({'error': 'first va last bo\'lishi kerak'}, status=400)
-    try:
-        user = CustomUser.objects.get(first_name=first, last_name=last)
-        data = {
-            'username': user.username,
-            'email': user.email,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            # qolgan maydonlar kerak bo'lsa qo'sh
-        }
-        return JsonResponse(data)
-    except CustomUser.DoesNotExist:
+
+    user = services.get_user_by_name(first, last)
+    if not user:
         return JsonResponse({'error': 'User not found'}, status=404)
+
+    data = {
+        'username': user.username,
+        'email': user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+    }
+    return JsonResponse(data)

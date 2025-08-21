@@ -8,18 +8,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = document.getElementById('submit-btn');
   const closeBtn = document.getElementById('close-modal');
 
+  // Modalni ochish
   addBtn.addEventListener('click', () => {
+    closeAllModals();
     modal.classList.add('show');
     step1.style.display = 'block';
     step2.style.display = 'none';
   });
 
+  // Modalni yopish
   closeBtn.addEventListener('click', () => {
     modal.classList.remove('show');
     step1.style.display = 'block';
     step2.style.display = 'none';
   });
 
+  // Keyingi bosqichga o‘tish
   nextBtn.addEventListener('click', () => {
     const title = document.querySelector("input[name='title']").value.trim();
     const description = document.querySelector("textarea[name='description']").value.trim();
@@ -31,11 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
     step2.style.display = 'block';
   });
 
+  // Orqaga qaytish
   backBtn.addEventListener('click', () => {
     step2.style.display = 'none';
     step1.style.display = 'block';
   });
 
+  // Formani yuborish
   submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const form = document.getElementById('add-project-form');
@@ -59,9 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         alert('Xatolik: ' + data.error);
       }
+    })
+    .catch(() => {
+      alert('Server bilan bog‘lanishda xatolik yuz berdi.');
     });
   });
 
+  // Yangi loyiha kartasini sahifaga qo‘shish
   function addCardToGrid(project) {
     const grid = document.querySelector('.project-grid');
     const card = document.createElement('div');
@@ -71,13 +81,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     card.innerHTML = `
       ${badge}
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
-      <p class="owner">👤 ${project.owner_name} ${project.owner_last_name}</p>
+      <h3>${escapeHtml(project.title)}</h3>
+      <p>${escapeHtml(project.description)}</p>
+      <p class="owner">👤 ${escapeHtml(project.owner_name)} ${escapeHtml(project.owner_last_name)}</p>
     `;
+
+    // Modal ochish funksiyasini chaqirish uchun onclick qo‘shish
+    card.setAttribute('onclick', `openModal('${project.id}', '${project.slug}', '${project.publish}')`);
+
     grid.prepend(card);
   }
 
+  // XSS oldini olish uchun escape qilish
+  function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/[&<>"'`=\/]/g, function(s) {
+      return ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '`': '&#96;',
+        '=': '&#61;',
+        '/': '&#47;'
+      })[s];
+    });
+  }
+
+  // CSRF tokenni olish
   function getCSRFToken() {
     const name = 'csrftoken';
     const cookies = document.cookie.split(';');
@@ -86,5 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (k === name) return v;
     }
     return '';
+  }
+
+  // Boshqa modalni yopish (agar ochiq bo‘lsa)
+  function closeAllModals() {
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.classList.remove('show');
+    });
   }
 });
