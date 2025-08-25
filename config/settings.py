@@ -68,16 +68,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'uzdevhub_db',
-        'USER': 'bitnet',
-        'PASSWORD': 'carZYbkuQcAqQNNikJ4fOcRXDApl5551',
-        'HOST': 'dpg-d2m3aovdiees73cgsgh0-a.oregon-postgres.render.com',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://bitnet:carZYbkuQcAqQNNikJ4fOcRXDApl5551@dpg-d2m3aovdiees73cgsgh0-a.oregon-postgres.render.com/uzdevhub_db',
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
+
 
 
 
